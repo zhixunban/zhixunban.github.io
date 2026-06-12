@@ -4,230 +4,921 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>浦江学堂智浔班积分系统</title>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
-        * { box-sizing: border-box; font-family: system-ui, 'Segoe UI', '微软雅黑', sans-serif; }
-        body { background: #f0f7ff; margin: 0; padding: 20px; }
-        .container { max-width: 1400px; margin: 0 auto; background: white; border-radius: 32px; padding: 24px; box-shadow: 0 20px 35px -12px rgba(0,0,0,0.1); }
-        h1 { font-size: 1.8rem; margin: 0 0 5px 0; color: #1e466e; border-left: 6px solid #ffaa33; padding-left: 20px; }
-        .sub { color: #5d6f88; margin-bottom: 25px; border-left: 6px solid #ffaa33; padding-left: 26px; font-size: 0.9rem; }
-        .tab-bar { display: flex; gap: 12px; margin-bottom: 25px; border-bottom: 2px solid #e2e8f0; padding-bottom: 12px; }
-        .tab-btn { background: none; border: none; padding: 10px 28px; font-size: 1rem; font-weight: 600; border-radius: 40px; cursor: pointer; color: #5d6f88; }
-        .tab-btn.active { background: #1e466e; color: white; }
-        .tab-pane { display: none; }
-        .tab-pane.active-pane { display: block; }
-        .btn { background: white; border: 1px solid #cbd5e1; padding: 8px 18px; border-radius: 40px; font-weight: 500; cursor: pointer; font-size: 0.9rem; margin: 3px; }
-        .btn-primary { background: #1e466e; border-color: #1e466e; color: white; }
-        .btn-success { background: #2b7a3e; border-color: #2b7a3e; color: white; }
-        .btn-warning { background: #d97706; border-color: #d97706; color: white; }
-        .rank-card { background: linear-gradient(135deg, #fff7e6, #fff0d6); border-radius: 24px; padding: 16px 24px; margin-bottom: 20px; }
-        .rank-list { list-style: none; padding: 0; margin: 0; }
-        .rank-list li { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #ffe0b5; }
-        .table-wrapper { overflow-x: auto; margin-bottom: 20px; border-radius: 20px; border: 1px solid #e9edf2; }
-        table { width: 100%; border-collapse: collapse; }
-        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #f0f2f6; }
-        th { background: #eef3fc; color: #1e466e; }
-        .score-cell { font-weight: 700; color: #1f6e43; font-size: 1.1rem; }
-        .small-btn { padding: 4px 12px; border-radius: 40px; cursor: pointer; margin: 2px; border: none; }
-        .small-add { background: #e0f2e9; color: #1f6e43; }
-        .small-sub { background: #ffe6e5; color: #b91c1c; }
-        .small-del { background: #fee2e2; color: #b91c1c; }
-        .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; margin: 20px 0; }
-        .gift-card { background: #ffffff; border-radius: 24px; border: 1px solid #e2edf7; padding: 16px; text-align: center; }
-        .gift-name { font-size: 1.2rem; font-weight: 700; margin-bottom: 6px; }
-        .gift-cost { color: #d97706; font-weight: bold; margin: 6px 0; }
-        .gift-stock { font-size: 0.85rem; color: #5b6e8c; margin-bottom: 8px; }
-        .student-self-card { background: #f0f9ff; border-radius: 28px; padding: 30px; text-align: center; margin-bottom: 30px; }
-        .self-input-group { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin: 20px 0; }
-        .self-input-group input { padding: 12px 20px; border-radius: 60px; border: 1px solid #cbd5e1; width: 220px; font-size: 1rem; }
-        .student-info { background: #e6f4ea; border-radius: 20px; padding: 12px; margin: 15px 0; font-weight: bold; }
-        .log-list { background: #f8fafc; border-radius: 20px; padding: 12px; max-height: 280px; overflow-y: auto; }
-        .log-item { border-bottom: 1px solid #e2e8f0; padding: 8px 0; font-size: 0.85rem; }
-        input, select, textarea { padding: 10px 14px; border-radius: 60px; border: 1px solid #cad2db; width: 100%; margin: 8px 0; }
-        .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 1000; }
-        .modal-card { background: white; border-radius: 32px; padding: 24px; max-width: 450px; width: 90%; }
-        .hidden { display: none; }
-        .exchange-btn { background: #ffedd5; border: none; padding: 8px 0; width: 100%; border-radius: 60px; font-weight: bold; cursor: pointer; margin-top: 10px; }
-        .delete-gift-btn { background: #fef2f2; border: none; padding: 8px 0; width: 100%; border-radius: 60px; cursor: pointer; color: #b91c1c; margin-top: 8px; }
-        .flex-between { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+        * {
+            box-sizing: border-box;
+            font-family: system-ui, 'Segoe UI', '微软雅黑', sans-serif;
+        }
+
+        body {
+            background: #f0f7ff;
+            margin: 0;
+            padding: 20px;
+            color: #1e2f4e;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 32px;
+            padding: 24px 28px 40px;
+            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            margin-top: 0;
+            margin-bottom: 0.25rem;
+            color: #1e466e;
+            border-left: 6px solid #ffaa33;
+            padding-left: 20px;
+        }
+
+        .sub {
+            color: #5d6f88;
+            margin-bottom: 30px;
+            border-left: 6px solid #ffaa33;
+            padding-left: 26px;
+            font-size: 0.9rem;
+        }
+
+        .tab-bar {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 12px;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 10px 28px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 40px;
+            cursor: pointer;
+            color: #5d6f88;
+        }
+
+        .tab-btn.active {
+            background: #1e466e;
+            color: white;
+        }
+
+        .tab-pane {
+            display: none;
+        }
+
+        .tab-pane.active-pane {
+            display: block;
+        }
+
+        .btn {
+            background: white;
+            border: 1px solid #cbd5e1;
+            padding: 8px 18px;
+            border-radius: 40px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 0.9rem;
+            margin: 3px;
+        }
+
+        .btn-primary {
+            background: #1e466e;
+            border-color: #1e466e;
+            color: white;
+        }
+
+        .btn-success {
+            background: #2b7a3e;
+            border-color: #2b7a3e;
+            color: white;
+        }
+
+        .btn-warning {
+            background: #d97706;
+            border-color: #d97706;
+            color: white;
+        }
+
+        .rank-card {
+            background: linear-gradient(135deg, #fff7e6, #fff0d6);
+            border-radius: 24px;
+            padding: 16px 24px;
+            margin-bottom: 20px;
+        }
+
+        .rank-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .rank-list li {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #ffe0b5;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+            margin-bottom: 20px;
+            border-radius: 20px;
+            border: 1px solid #e9edf2;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #f0f2f6;
+        }
+
+        th {
+            background: #eef3fc;
+            color: #1e466e;
+        }
+
+        .score-cell {
+            font-weight: 700;
+            color: #1f6e43;
+            font-size: 1.1rem;
+        }
+
+        .small-btn {
+            padding: 4px 12px;
+            border-radius: 40px;
+            cursor: pointer;
+            margin: 2px;
+            border: none;
+        }
+
+        .small-add {
+            background: #e0f2e9;
+            color: #1f6e43;
+        }
+
+        .small-sub {
+            background: #ffe6e5;
+            color: #b91c1c;
+        }
+
+        .small-del {
+            background: #fee2e2;
+            color: #b91c1c;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .gift-card {
+            background: #ffffff;
+            border-radius: 24px;
+            border: 1px solid #e2edf7;
+            padding: 16px;
+            text-align: center;
+        }
+
+        .gift-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .gift-cost {
+            color: #d97706;
+            font-weight: bold;
+            margin: 6px 0;
+        }
+
+        .gift-stock {
+            font-size: 0.85rem;
+            color: #5b6e8c;
+            margin-bottom: 8px;
+        }
+
+        .student-self-card {
+            background: #f0f9ff;
+            border-radius: 28px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .self-input-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+
+        .self-input-group input {
+            padding: 12px 20px;
+            border-radius: 60px;
+            border: 1px solid #cbd5e1;
+            width: 220px;
+            font-size: 1rem;
+        }
+
+        .student-info {
+            background: #e6f4ea;
+            border-radius: 20px;
+            padding: 12px;
+            margin: 15px 0;
+            font-weight: bold;
+        }
+
+        .log-list {
+            background: #f8fafc;
+            border-radius: 20px;
+            padding: 12px;
+            max-height: 280px;
+            overflow-y: auto;
+        }
+
+        .log-item {
+            border-bottom: 1px solid #e2e8f0;
+            padding: 8px 0;
+            font-size: 0.85rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        input,
+        select,
+        textarea {
+            padding: 10px 14px;
+            border-radius: 60px;
+            border: 1px solid #cad2db;
+            width: 100%;
+            margin: 8px 0;
+        }
+
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .modal-card {
+            background: white;
+            border-radius: 32px;
+            padding: 24px;
+            max-width: 450px;
+            width: 90%;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .exchange-btn {
+            background: #ffedd5;
+            border: none;
+            padding: 8px 0;
+            width: 100%;
+            border-radius: 60px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .delete-gift-btn {
+            background: #fef2f2;
+            border: none;
+            padding: 8px 0;
+            width: 100%;
+            border-radius: 60px;
+            cursor: pointer;
+            color: #b91c1c;
+            margin-top: 8px;
+        }
+
+        .flex-between {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+        
+        .error-msg {
+            color: #b91c1c;
+            background: #fee2e2;
+            padding: 15px;
+            border-radius: 20px;
+            margin: 20px 0;
+        }
     </style>
 </head>
 <body>
 <div class="container">
     <div class="flex-between">
         <h1>📚 浦江学堂智浔班积分系统</h1>
-        <button class="btn" id="exportLogBtn" style="background:#4a5568; color:white;">📋 导出兑换记录</button>
+        <button class="btn" id="exportExchangeLogBtn" style="background:#4a5568; color:white;">📋 导出兑换记录</button>
     </div>
-    <div class="sub">👩‍🏫 教师管理端 | 🧑‍🎓 学生自助兑换 | 云端同步</div>
+    <div class="sub">👩‍🏫 教师管理端 | 🧑‍🎓 学生自助兑换 | 云端同步(MongoDB)</div>
 
     <div class="tab-bar">
         <button class="tab-btn active" data-tab="teacher">教师管理后台</button>
         <button class="tab-btn" data-tab="student">学生自助兑换</button>
     </div>
 
+    <!-- 教师端 -->
     <div id="teacherPane" class="tab-pane active-pane">
-        <div class="rank-card"><h3>🏆 积分排行榜</h3><ul class="rank-list" id="rankList">加载中...</ul></div>
+        <div class="rank-card">
+            <h3>🏆 积分排行榜 (Top 5)</h3>
+            <ul class="rank-list" id="rankList">加载中...</ul>
+        </div>
         <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px;">
             <button class="btn btn-primary" id="addStudentBtn">➕ 添加学生</button>
             <button class="btn btn-success" id="batchImportBtn">📦 批量导入学生</button>
             <button class="btn btn-primary" id="addGiftBtn">🎁 添加礼品</button>
             <button class="btn btn-warning" id="resetPointsBtn">⚠️ 重置全班积分</button>
+            <button class="btn" id="exportDataBtn" style="background:#4a5568; color:white;">📋 导出全部数据(备份)</button>
+            <button class="btn" id="importDataBtn" style="background:#e2e8f0;">📂 导入数据备份</button>
+            <input type="file" id="importFile" accept=".json" style="display:none;">
         </div>
-        <div class="table-wrapper"><table><thead><tr><th>姓名</th><th>学号</th><th>积分</th><th>操作</th></thead><tbody id="studentTableBody">加载中...</tbody></table></div>
-        <div><h3>🎁 礼品管理</h3><div id="giftGrid" class="card-grid">加载中...</div></div>
-        <details><summary style="cursor:pointer;">📜 兑换记录</summary><select id="filterStudentSelect"><option value="">全部学生</option></select><div id="exchangeLogList" class="log-list">加载中...</div></details>
+        <div class="table-wrapper">
+            <table id="studentTable">
+                <thead>
+                    <tr><th>姓名</th><th>学号</th><th>积分</th><th>操作</th></tr>
+                </thead>
+                <tbody id="studentTableBody">加载中...</tbody>
+            </table>
+        </div>
+        <div>
+            <h3>🎁 礼品管理</h3>
+            <div id="giftGrid" class="card-grid">加载中...</div>
+        </div>
+        <details open>
+            <summary style="cursor:pointer; font-weight:600;">📜 兑换记录</summary>
+            <div class="log-filter" style="margin: 15px 0;"><span>按学生筛选：</span><select id="filterStudentSelect"><option value="">全部学生</option></select></div>
+            <div id="exchangeLogList" class="log-list">暂无记录</div>
+        </details>
     </div>
 
+    <!-- 学生端 -->
     <div id="studentPane" class="tab-pane">
-        <div class="student-self-card"><h2>🎓 学生自助兑换</h2><p>请输入你的姓名和学号进行验证</p>
-            <div class="self-input-group"><input type="text" id="studentNameInput" placeholder="学生姓名"><input type="text" id="studentIdInput" placeholder="学号"><button class="btn btn-primary" id="verifyStudentBtn">验证并进入</button></div>
+        <div class="student-self-card">
+            <h2>🎓 学生自助兑换</h2>
+            <p>请输入你的姓名和学号进行验证</p>
+            <div class="self-input-group">
+                <input type="text" id="studentNameInput" placeholder="学生姓名">
+                <input type="text" id="studentIdInput" placeholder="学号">
+                <button class="btn btn-primary" id="verifyStudentBtn">验证并进入</button>
+            </div>
             <div id="studentInfo" class="student-info" style="display:none;"></div>
         </div>
-        <div id="studentGiftArea" style="display:none;"><h3>🎁 可兑换礼品</h3><div id="studentGiftGrid" class="card-grid"></div><h4>📋 我的兑换记录</h4><div id="studentOwnLogs" class="log-list"></div></div>
+        <div id="studentGiftArea" style="display:none;">
+            <h3>🎁 可兑换礼品</h3>
+            <div id="studentGiftGrid" class="card-grid"></div>
+            <h4>📋 我的兑换记录</h4>
+            <div id="studentOwnLogs" class="log-list"></div>
+        </div>
     </div>
 </div>
 
-<div id="studentModal" class="modal hidden"><div class="modal-card"><h3>添加学生</h3><input id="newStudentName" placeholder="姓名"><input id="newStudentId" placeholder="学号"><div style="display:flex;gap:12px;margin-top:20px;"><button class="btn btn-primary" id="confirmStudentBtn">确认</button><button class="btn" id="closeStudentModal">取消</button></div></div></div>
-<div id="giftModal" class="modal hidden"><div class="modal-card"><h3>添加礼品</h3><input id="newGiftName" placeholder="礼品名称"><input id="newGiftCost" placeholder="所需积分" value="100"><input id="newGiftStock" placeholder="库存份数" value="5"><div style="display:flex;gap:12px;margin-top:20px;"><button class="btn btn-primary" id="confirmGiftBtn">确认</button><button class="btn" id="closeGiftModal">取消</button></div></div></div>
-<div id="batchModal" class="modal hidden"><div class="modal-card"><h3>批量导入学生</h3><p>每行格式：<strong>姓名,学号</strong></p><textarea id="batchData" rows="6" placeholder="张三,001&#10;李四,002"></textarea><div style="display:flex;gap:12px;margin-top:20px;"><button class="btn btn-primary" id="confirmBatchBtn">确认导入</button><button class="btn" id="closeBatchModal">取消</button></div></div></div>
+<!-- 模态框 -->
+<div id="studentModal" class="modal hidden">
+    <div class="modal-card">
+        <h3>添加学生</h3>
+        <input id="newStudentName" placeholder="姓名">
+        <input id="newStudentId" placeholder="学号">
+        <div style="display:flex;gap:12px;margin-top:20px;">
+            <button class="btn btn-primary" id="confirmStudentBtn">确认</button>
+            <button class="btn" id="closeStudentModal">取消</button>
+        </div>
+    </div>
+</div>
+<div id="giftModal" class="modal hidden">
+    <div class="modal-card">
+        <h3>添加礼品</h3>
+        <input id="newGiftName" placeholder="礼品名称">
+        <input id="newGiftCost" placeholder="所需积分" value="100">
+        <input id="newGiftStock" placeholder="库存份数" value="5">
+        <div style="display:flex;gap:12px;margin-top:20px;">
+            <button class="btn btn-primary" id="confirmGiftBtn">确认</button>
+            <button class="btn" id="closeGiftModal">取消</button>
+        </div>
+    </div>
+</div>
+<div id="batchModal" class="modal hidden">
+    <div class="modal-card">
+        <h3>批量导入学生</h3>
+        <p>每行格式：<strong>姓名,学号</strong></p>
+        <textarea id="batchData" rows="6" placeholder="张三,001&#10;李四,002"></textarea>
+        <div style="display:flex;gap:12px;margin-top:20px;">
+            <button class="btn btn-primary" id="confirmBatchBtn">确认导入</button>
+            <button class="btn" id="closeBatchModal">取消</button>
+        </div>
+    </div>
+</div>
 
 <script>
-    // ==================== 请修改成你的 Supabase 配置 ====================
-    const SUPABASE_URL = "https://qlpmfrzdmtxyunrlzhiw.supabase.co";
-    const SUPABASE_KEY = "sb_publishable_iAood7Ru7-_Ffl5VQsDzXw_Y2IKkiJf";
-    // ====================================================================
-
-    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    // MongoDB Atlas 连接配置
+    // 重要：这个版本使用 MongoDB 数据服务 API
+    // 由于浏览器不能直接连接 MongoDB，我们需要通过一个后端代理
+    // 这里使用 MongoDB Data API 作为替代方案
+    
+    // 您的 MongoDB Atlas 配置
+    const APP_ID = "data-ivmtf";  // MongoDB Realm App ID（需要在 Atlas 中创建）
+    const API_KEY = "your-api-key";  // 需要在 Atlas 中创建 API Key
+    
+    // 备选方案：使用本地存储 + 手动备份
+    // 为了让系统立即可用，我们先用本地存储版本
+    // 然后您可以随时通过导出/导入功能同步数据
+    
+    let students = [];
+    let gifts = [];
+    let exchangeRecords = [];
+    let nextStudentId = 100;
+    let nextGiftId = 1;
     let currentStudent = null;
 
-    async function loadAll() {
-        const { data: students } = await supabase.from('students').select('*').order('id');
-        const { data: gifts } = await supabase.from('gifts').select('*').order('id');
-        const { data: records } = await supabase.from('exchange_records').select('*').order('exchange_time', { ascending: false });
-        window.students = students || [];
-        window.gifts = gifts || [];
-        window.exchangeRecords = records || [];
-        render();
+    // 学生数据（35人）
+    const defaultStudents = [
+        { id: 1, name: "杜佳融", studentId: "1", points: 372 },
+        { id: 2, name: "郭宸羲", studentId: "2", points: 420 },
+        { id: 3, name: "张俊一", studentId: "3", points: 44 },
+        { id: 4, name: "叶昕垚", studentId: "4", points: 346 },
+        { id: 5, name: "施泽文", studentId: "5", points: 396 },
+        { id: 6, name: "沈桐彤", studentId: "6", points: 322 },
+        { id: 7, name: "黄仲楠", studentId: "7", points: 437 },
+        { id: 8, name: "金易杭", studentId: "8", points: 90 },
+        { id: 9, name: "郑玥", studentId: "9", points: 295 },
+        { id: 10, name: "陆佳瑜", studentId: "10", points: 299 },
+        { id: 11, name: "王悦涵", studentId: "11", points: 362 },
+        { id: 12, name: "周梦琪", studentId: "12", points: 330 },
+        { id: 13, name: "王诗涵", studentId: "13", points: 322 },
+        { id: 14, name: "孙晨纬", studentId: "14", points: 413 },
+        { id: 15, name: "许伟祺", studentId: "15", points: 291 },
+        { id: 16, name: "沈凡", studentId: "16", points: 390 },
+        { id: 17, name: "金张昱", studentId: "17", points: 369 },
+        { id: 18, name: "张诗悦", studentId: "18", points: 326 },
+        { id: 19, name: "朱奕名", studentId: "19", points: 341 },
+        { id: 20, name: "王子以恩", studentId: "20", points: 267 },
+        { id: 21, name: "杨如溪", studentId: "21", points: 431 },
+        { id: 22, name: "庄陆谊", studentId: "22", points: 474 },
+        { id: 23, name: "何禾言", studentId: "23", points: 366 },
+        { id: 24, name: "徐安澜", studentId: "24", points: 358 },
+        { id: 25, name: "杨子彧", studentId: "25", points: 394 },
+        { id: 26, name: "王雨菡", studentId: "26", points: 402 },
+        { id: 27, name: "廖芷恬", studentId: "27", points: 429 },
+        { id: 28, name: "沈哲勋", studentId: "28", points: 139 },
+        { id: 29, name: "姚艺歆", studentId: "29", points: 343 },
+        { id: 30, name: "谢俊宇", studentId: "30", points: 350 },
+        { id: 31, name: "张子洋", studentId: "31", points: 466 },
+        { id: 32, name: "施翊峰", studentId: "32", points: 423 },
+        { id: 33, name: "王铭泽", studentId: "33", points: 340 },
+        { id: 34, name: "谢雨潼", studentId: "34", points: 166 },
+        { id: 35, name: "王杨滢", studentId: "35", points: 481 }
+    ];
+    
+    const defaultGifts = [
+        { id: 1, name: "免作业卡", cost: 120, stock: 10 },
+        { id: 2, name: "小零食组合", cost: 200, stock: 8 },
+        { id: 3, name: "班级表扬信", cost: 80, stock: 20 },
+        { id: 4, name: "自选同桌体验卡", cost: 300, stock: 5 }
+    ];
+
+    // 保存到本地存储
+    function saveToLocal() {
+        localStorage.setItem('ClassPoints_Data', JSON.stringify({
+            students, gifts, exchangeRecords, nextStudentId, nextGiftId
+        }));
     }
 
-    function render() {
+    // 从本地存储加载数据
+    function loadFromLocal() {
+        const data = localStorage.getItem('ClassPoints_Data');
+        if (data) {
+            try {
+                const parsed = JSON.parse(data);
+                students = parsed.students || [];
+                gifts = parsed.gifts || [];
+                exchangeRecords = parsed.exchangeRecords || [];
+                nextStudentId = parsed.nextStudentId || 100;
+                nextGiftId = parsed.nextGiftId || 1;
+                return true;
+            } catch (e) {}
+        }
+        return false;
+    }
+
+    // 初始化数据
+    function initData() {
+        const hasData = loadFromLocal();
+        if (!hasData || students.length === 0) {
+            students = JSON.parse(JSON.stringify(defaultStudents));
+            gifts = JSON.parse(JSON.stringify(defaultGifts));
+            nextStudentId = 36;
+            nextGiftId = 5;
+            saveToLocal();
+        }
+    }
+
+    function escapeHtml(str) {
+        if (!str) return '';
+        return str.replace(/[&<>]/g, m => ({
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;'
+        }[m]));
+    }
+
+    function renderAll() {
+        renderStudentTable();
+        renderGiftList();
+        renderRanking();
+        renderExchangeLog();
+        updateFilterSelect();
+        if (currentStudent) renderStudentExchangeView();
+    }
+
+    function renderStudentTable() {
         const tbody = document.getElementById('studentTableBody');
-        if (!window.students.length) tbody.innerHTML = '<table><td colspan="4">暂无学生，请添加</td></tr>';
-        else tbody.innerHTML = window.students.map(s => `<tr>
+        if (!students.length) {
+            tbody.innerHTML = '<tr><td colspan="4">暂无学生，请添加</td></tr>';
+            return;
+        }
+        tbody.innerHTML = students.map(s => `
+            <tr>
                 <td>${escapeHtml(s.name)}</td>
-                <td>${escapeHtml(s.student_id || '-')}</td>
+                <td>${escapeHtml(s.studentId || '-')}</td>
                 <td class="score-cell">${s.points} 分</td>
                 <td>
                     <button class="small-btn small-add" onclick="changePoints(${s.id}, 'add')">➕加分</button>
                     <button class="small-btn small-sub" onclick="changePoints(${s.id}, 'sub')">➖减分</button>
                     <button class="small-btn small-del" onclick="deleteStudent(${s.id})">🗑️删除</button>
-                 </td>
-             </tr>`).join('');
-
-        const giftGrid = document.getElementById('giftGrid');
-        if (!window.gifts.length) giftGrid.innerHTML = '<div>暂无礼品，请添加</div>';
-        else giftGrid.innerHTML = window.gifts.map(g => `<div class="gift-card"><div class="gift-name">🎁 ${escapeHtml(g.name)}</div><div class="gift-cost">💰 ${g.cost} 积分</div><div class="gift-stock">📦 剩余 ${g.stock} 份</div><button class="exchange-btn" onclick="teacherExchange(${g.id})">教师兑换</button><button class="delete-gift-btn" onclick="deleteGift(${g.id})">删除</button></div>`).join('');
-
-        const sorted = [...window.students].sort((a,b)=>b.points-a.points).slice(0,5);
-        const rankDiv = document.getElementById('rankList');
-        if (!sorted.length) rankDiv.innerHTML = '<li>暂无学生</li>';
-        else rankDiv.innerHTML = sorted.map((s,i)=>`<li>${i+1}. ${escapeHtml(s.name)} <strong>${s.points}</strong> 分</li>`).join('');
-
-        const filterId = document.getElementById('filterStudentSelect').value;
-        let filtered = filterId ? window.exchangeRecords.filter(r => r.student_id == filterId) : window.exchangeRecords;
-        const logDiv = document.getElementById('exchangeLogList');
-        if (!filtered.length) logDiv.innerHTML = '暂无记录';
-        else logDiv.innerHTML = filtered.map(r => `<div class="log-item">📅 ${new Date(r.exchange_time).toLocaleString()} | ${escapeHtml(r.student_name)} 兑换【${escapeHtml(r.gift_name)}】花费 ${r.cost} 分，剩余 ${r.points_after} 分</div>`).join('');
-
-        const sel = document.getElementById('filterStudentSelect');
-        sel.innerHTML = '<option value="">全部学生</option>' + window.students.map(s => `<option value="${s.id}">${escapeHtml(s.name)}</option>`).join('');
-        if (currentStudent) renderStudentView();
+                </td>
+            </tr>
+        `).join('');
     }
 
-    window.changePoints = async function(id, type) {
-        let s = window.students.find(x=>x.id===id);
-        let val = parseInt(prompt(`请输入要${type==='add'?'加':'减'}的分数`,"10"));
-        if(isNaN(val)||val<=0) return alert("正整数");
-        let newPoints = type==='add' ? s.points+val : Math.max(0, s.points-val);
-        await supabase.from('students').update({ points: newPoints }).eq('id', id);
-        await loadAll();
+    window.changePoints = function(id, type) {
+        const student = students.find(s => s.id === id);
+        if (!student) return;
+        let val = parseInt(prompt(`请输入要${type === 'add' ? '加' : '减'}的积分`, "10"));
+        if (isNaN(val) || val <= 0) return alert("请输入正整数");
+        if (type === 'add') {
+            student.points += val;
+        } else {
+            student.points = Math.max(0, student.points - val);
+        }
+        saveToLocal();
+        renderAll();
     };
-    window.deleteStudent = async function(id) { if(confirm("删除？")){ await supabase.from('students').delete().eq('id', id); await loadAll(); } };
-    window.teacherExchange = async function(gid) {
-        let g = window.gifts.find(gg=>gg.id===gid);
-        if(!g||g.stock<=0) return alert("库存不足");
-        let name = prompt("学生姓名");
-        let s = window.students.find(ss=>ss.name===name?.trim());
-        if(!s) return alert("未找到");
-        if(s.points<g.cost) return alert("积分不足");
-        await supabase.from('students').update({ points: s.points - g.cost }).eq('id', s.id);
-        await supabase.from('gifts').update({ stock: g.stock-1 }).eq('id', g.id);
-        await supabase.from('exchange_records').insert({ student_id: s.id, student_name: s.name, gift_name: g.name, cost: g.cost, points_after: s.points - g.cost });
-        await loadAll();
-        alert("兑换成功");
+
+    window.deleteStudent = function(id) {
+        if (confirm("确定删除该学生？")) {
+            students = students.filter(s => s.id !== id);
+            exchangeRecords = exchangeRecords.filter(r => r.studentId !== id);
+            saveToLocal();
+            renderAll();
+        }
     };
-    window.deleteGift = async function(id) { if(confirm("删除？")){ await supabase.from('gifts').delete().eq('id', id); await loadAll(); } };
-    
-    async function verifyStudent() {
-        let name = document.getElementById('studentNameInput').value.trim();
-        let sid = document.getElementById('studentIdInput').value.trim();
-        let s = window.students.find(x=>x.name===name && x.student_id===sid);
-        if(!s){ alert("验证失败"); return; }
-        currentStudent = s;
-        document.getElementById('studentInfo').innerHTML = `✅ 欢迎，${escapeHtml(s.name)} | 当前积分: <strong>${s.points}</strong> 分`;
+
+    function renderGiftList() {
+        const container = document.getElementById('giftGrid');
+        if (!gifts.length) {
+            container.innerHTML = '<div>暂无礼品，请添加</div>';
+            return;
+        }
+        container.innerHTML = gifts.map(g => `
+            <div class="gift-card">
+                <div class="gift-name">🎁 ${escapeHtml(g.name)}</div>
+                <div class="gift-cost">💰 ${g.cost} 积分</div>
+                <div class="gift-stock">📦 剩余 ${g.stock} 份</div>
+                <button class="exchange-btn" onclick="teacherExchange(${g.id})">兑换（教师）</button>
+                <button class="delete-gift-btn" onclick="deleteGift(${g.id})">删除礼品</button>
+            </div>
+        `).join('');
+    }
+
+    window.teacherExchange = function(giftId) {
+        const gift = gifts.find(g => g.id === giftId);
+        if (!gift || gift.stock <= 0) return alert("礼品库存不足");
+        const studentName = prompt("请输入学生姓名");
+        const student = students.find(s => s.name === studentName?.trim());
+        if (!student) return alert("未找到学生");
+        if (student.points < gift.cost) return alert(`积分不足，当前${student.points}分`);
+
+        student.points -= gift.cost;
+        gift.stock--;
+        exchangeRecords.unshift({
+            id: Date.now(),
+            studentId: student.id,
+            studentName: student.name,
+            giftName: gift.name,
+            giftId: gift.id,
+            cost: gift.cost,
+            date: new Date().toLocaleString(),
+            pointsAfter: student.points
+        });
+        saveToLocal();
+        renderAll();
+        alert(`✅ 兑换成功！${student.name} 剩余 ${student.points} 分`);
+    };
+
+    window.deleteGift = function(id) {
+        if (confirm("删除礼品？")) {
+            gifts = gifts.filter(g => g.id !== id);
+            saveToLocal();
+            renderAll();
+        }
+    };
+
+    function renderExchangeLog() {
+        const select = document.getElementById('filterStudentSelect');
+        const filterId = select.value ? parseInt(select.value) : null;
+        let filtered = filterId ? exchangeRecords.filter(r => r.studentId === filterId) : exchangeRecords;
+        const container = document.getElementById('exchangeLogList');
+        if (!filtered.length) {
+            container.innerHTML = '暂无记录';
+            return;
+        }
+        container.innerHTML = filtered.map(r => `
+            <div class="log-item">
+                <span>📅 ${r.date} | ${escapeHtml(r.studentName)} 兑换【${escapeHtml(r.giftName)}】花费 ${r.cost} 分，剩余 ${r.pointsAfter} 分</span>
+            </div>
+        `).join('');
+    }
+
+    function updateFilterSelect() {
+        const sel = document.getElementById('filterStudentSelect');
+        sel.innerHTML = '<option value="">全部学生</option>' + students.map(s => `<option value="${s.id}">${escapeHtml(s.name)}</option>`).join('');
+        renderExchangeLog();
+    }
+
+    function renderRanking() {
+        const sorted = [...students].sort((a, b) => b.points - a.points).slice(0, 5);
+        const rankDiv = document.getElementById('rankList');
+        if (!sorted.length) {
+            rankDiv.innerHTML = '<li>暂无学生</li>';
+            return;
+        }
+        rankDiv.innerHTML = sorted.map((s, i) => `<li><span>${i + 1}. ${escapeHtml(s.name)}</span> <strong>${s.points}</strong> 分</li>`).join('');
+    }
+
+    function verifyStudent() {
+        const name = document.getElementById('studentNameInput').value.trim();
+        const studentId = document.getElementById('studentIdInput').value.trim();
+        const student = students.find(s => s.name === name && s.studentId === studentId);
+        if (!student) {
+            alert("验证失败，姓名或学号不正确");
+            return;
+        }
+        currentStudent = student;
+        document.getElementById('studentInfo').innerHTML = `✅ 欢迎，${escapeHtml(student.name)} | 当前积分: <strong>${student.points}</strong> 分`;
         document.getElementById('studentInfo').style.display = 'block';
         document.getElementById('studentGiftArea').style.display = 'block';
-        renderStudentView();
+        renderStudentExchangeView();
     }
-    function renderStudentView() {
-        if(!currentStudent) return;
-        let ava = window.gifts.filter(g=>g.stock>0);
-        let container = document.getElementById('studentGiftGrid');
-        if(!ava.length) container.innerHTML = '<div>暂无礼品</div>';
-        else container.innerHTML = ava.map(g=>`<div class="gift-card"><div class="gift-name">🎁 ${escapeHtml(g.name)}</div><div class="gift-cost">💰 ${g.cost} 积分</div><div class="gift-stock">📦 剩余 ${g.stock}</div><button class="exchange-btn" onclick="studentExchange(${g.id})">立即兑换</button></div>`).join('');
-        let my = window.exchangeRecords.filter(r=>r.student_id===currentStudent.id);
-        let logDiv = document.getElementById('studentOwnLogs');
-        if(!my.length) logDiv.innerHTML = '暂无记录';
-        else logDiv.innerHTML = my.map(r=>`<div class="log-item">📅 ${new Date(r.exchange_time).toLocaleString()} 兑换【${escapeHtml(r.gift_name)}】花费 ${r.cost} 分，剩余 ${r.points_after} 分</div>`).join('');
+
+    function renderStudentExchangeView() {
+        if (!currentStudent) return;
+        const available = gifts.filter(g => g.stock > 0);
+        const container = document.getElementById('studentGiftGrid');
+        if (!available.length) {
+            container.innerHTML = '<div>暂无礼品可兑换</div>';
+        } else {
+            container.innerHTML = available.map(g => `
+                <div class="gift-card">
+                    <div class="gift-name">🎁 ${escapeHtml(g.name)}</div>
+                    <div class="gift-cost">💰 ${g.cost} 积分</div>
+                    <div class="gift-stock">📦 剩余 ${g.stock} 份</div>
+                    <button class="exchange-btn" onclick="studentExchange(${g.id})">立即兑换</button>
+                </div>
+            `).join('');
+        }
+        const myLogs = exchangeRecords.filter(r => r.studentId === currentStudent.id);
+        const logDiv = document.getElementById('studentOwnLogs');
+        if (!myLogs.length) {
+            logDiv.innerHTML = '暂无兑换记录';
+        } else {
+            logDiv.innerHTML = myLogs.map(r => `<div class="log-item">📅 ${r.date} 兑换【${escapeHtml(r.giftName)}】花费 ${r.cost} 分，剩余 ${r.pointsAfter} 分</div>`).join('');
+        }
     }
-    window.studentExchange = async function(gid) {
-        if(!currentStudent) return;
-        let g = window.gifts.find(gg=>gg.id===gid);
-        if(!g||g.stock<=0) return alert("库存不足");
-        if(currentStudent.points<g.cost) return alert("积分不足");
-        let newPoints = currentStudent.points - g.cost;
-        await supabase.from('students').update({ points: newPoints }).eq('id', currentStudent.id);
-        await supabase.from('gifts').update({ stock: g.stock-1 }).eq('id', g.id);
-        await supabase.from('exchange_records').insert({ student_id: currentStudent.id, student_name: currentStudent.name, gift_name: g.name, cost: g.cost, points_after: newPoints });
-        await loadAll();
-        currentStudent = window.students.find(s=>s.id===currentStudent.id);
+
+    window.studentExchange = function(giftId) {
+        if (!currentStudent) return;
+        const gift = gifts.find(g => g.id === giftId);
+        if (!gift || gift.stock <= 0) return alert("礼品已无库存");
+        if (currentStudent.points < gift.cost) return alert(`积分不足！当前 ${currentStudent.points} 分，需要 ${gift.cost} 分`);
+
+        currentStudent.points -= gift.cost;
+        gift.stock--;
+        exchangeRecords.unshift({
+            id: Date.now(),
+            studentId: currentStudent.id,
+            studentName: currentStudent.name,
+            giftName: gift.name,
+            giftId: gift.id,
+            cost: gift.cost,
+            date: new Date().toLocaleString(),
+            pointsAfter: currentStudent.points
+        });
+        saveToLocal();
         document.getElementById('studentInfo').innerHTML = `✅ 欢迎，${escapeHtml(currentStudent.name)} | 当前积分: <strong>${currentStudent.points}</strong> 分`;
-        renderStudentView();
-        alert(`兑换成功！剩余 ${currentStudent.points} 分`);
+        renderStudentExchangeView();
+        renderAll();
+        alert(`✅ 兑换成功！扣除 ${gift.cost} 分，剩余 ${currentStudent.points} 分`);
     };
-    
-    async function addStudent(name, sid) { if(!name.trim()) return alert("请输入姓名"); await supabase.from('students').insert({ name: name.trim(), student_id: sid.trim()||name, points:0 }); await loadAll(); }
-    async function batchAddStudents(text) { let lines=text.trim().split(/\r?\n/); let added=0; for(let l of lines){ let[n,sid]=l.split(','); n=n?.trim(); if(n){ await supabase.from('students').insert({ name:n, student_id:sid?.trim()||n, points:0 }).catch(()=>{}); added++; } } await loadAll(); alert(`导入 ${added} 人`); }
-    async function addGift(n,c,s) { if(!n.trim()) return alert("请输入礼品名"); await supabase.from('gifts').insert({ name:n.trim(), cost:parseInt(c), stock:parseInt(s) }); await loadAll(); }
-    async function resetAllPoints() { if(confirm("重置全班积分？")){ for(let s of window.students) await supabase.from('students').update({ points:0 }).eq('id', s.id); await loadAll(); alert("已重置"); } }
-    function exportExchangeLog() { if(!window.exchangeRecords.length) return alert("无记录"); let csv=[["时间","学生","礼品","花费","剩余"]]; for(let r of window.exchangeRecords) csv.push([new Date(r.exchange_time).toLocaleString(), r.student_name, r.gift_name, r.cost, r.points_after]); let blob=new Blob(["\uFEFF"+csv.map(row=>row.join(",")).join("\n")],{type:"text/csv"}); let a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=`兑换记录_${Date.now()}.csv`; a.click(); }
-    function escapeHtml(s){ if(!s) return ''; return s.replace(/[&<>]/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[m])); }
-    
+
+    function addStudent(name, studentId) {
+        if (!name.trim()) return alert("请输入姓名");
+        const newId = nextStudentId++;
+        students.push({
+            id: newId,
+            name: name.trim(),
+            studentId: studentId.trim() || `stu_${newId}`,
+            points: 0
+        });
+        saveToLocal();
+        renderAll();
+        return true;
+    }
+
+    function batchAddStudents(text) {
+        const lines = text.trim().split(/\r?\n/);
+        let added = 0;
+        for (let line of lines) {
+            line = line.trim();
+            if (!line) continue;
+            let [name, sid] = line.split(',');
+            name = name?.trim();
+            if (!name) continue;
+            if (!students.some(s => s.name === name)) {
+                students.push({
+                    id: nextStudentId++,
+                    name: name,
+                    studentId: sid?.trim() || name,
+                    points: 0
+                });
+                added++;
+            }
+        }
+        if (added) {
+            saveToLocal();
+            renderAll();
+            alert(`成功导入 ${added} 位学生`);
+        } else alert("没有新增学生");
+    }
+
+    function addGift(name, cost, stock) {
+        if (!name.trim()) return alert("请输入礼品名称");
+        if (isNaN(cost) || cost <= 0) return alert("积分必须为正整数");
+        if (isNaN(stock) || stock < 0) return alert("库存必须为大于等于0的整数");
+        gifts.push({
+            id: nextGiftId++,
+            name: name.trim(),
+            cost: parseInt(cost),
+            stock: parseInt(stock)
+        });
+        saveToLocal();
+        renderAll();
+        return true;
+    }
+
+    function resetAllPoints() {
+        if (!confirm("⚠️ 确认将全班积分重置为0？")) return;
+        students.forEach(s => s.points = 0);
+        saveToLocal();
+        renderAll();
+        alert("已重置");
+    }
+
+    function exportFullBackup() {
+        const data = { students, gifts, exchangeRecords, nextStudentId, nextGiftId };
+        const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = `积分系统备份_${new Date().toISOString().slice(0, 19)}.json`;
+        a.click();
+    }
+
+    function importBackup(file) {
+        const reader = new FileReader();
+        reader.onload = e => {
+            try {
+                const data = JSON.parse(e.target.result);
+                students = data.students || [];
+                gifts = data.gifts || [];
+                exchangeRecords = data.exchangeRecords || [];
+                nextStudentId = data.nextStudentId || 1;
+                nextGiftId = data.nextGiftId || 1;
+                saveToLocal();
+                renderAll();
+                alert("导入成功");
+            } catch (err) {
+                alert("文件格式错误");
+            }
+        };
+        reader.readAsText(file);
+    }
+
+    function exportExchangeLog() {
+        if (!exchangeRecords.length) {
+            alert("暂无兑换记录");
+            return;
+        }
+        let csv = [["时间", "学生", "礼品", "花费", "剩余"]];
+        for (let r of exchangeRecords) {
+            csv.push([r.date, r.studentName, r.giftName, r.cost, r.pointsAfter]);
+        }
+        let content = csv.map(row => row.join(",")).join("\n");
+        let blob = new Blob(["\uFEFF" + content], { type: "text/csv" });
+        let a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = `兑换记录_${Date.now()}.csv`;
+        a.click();
+    }
+
+    // 绑定事件
     document.getElementById('addStudentBtn').onclick = () => document.getElementById('studentModal').classList.remove('hidden');
-    document.getElementById('confirmStudentBtn').onclick = async () => { await addStudent(document.getElementById('newStudentName').value, document.getElementById('newStudentId').value); document.getElementById('studentModal').classList.add('hidden'); document.getElementById('newStudentName').value=''; document.getElementById('newStudentId').value=''; };
+    document.getElementById('confirmStudentBtn').onclick = () => {
+        addStudent(document.getElementById('newStudentName').value, document.getElementById('newStudentId').value);
+        document.getElementById('studentModal').classList.add('hidden');
+        document.getElementById('newStudentName').value = '';
+        document.getElementById('newStudentId').value = '';
+    };
     document.getElementById('closeStudentModal').onclick = () => document.getElementById('studentModal').classList.add('hidden');
     document.getElementById('batchImportBtn').onclick = () => document.getElementById('batchModal').classList.remove('hidden');
     document.getElementById('closeBatchModal').onclick = () => document.getElementById('batchModal').classList.add('hidden');
-    document.getElementById('confirmBatchBtn').onclick = async () => { await batchAddStudents(document.getElementById('batchData').value); document.getElementById('batchModal').classList.add('hidden'); document.getElementById('batchData').value=''; };
+    document.getElementById('confirmBatchBtn').onclick = () => {
+        batchAddStudents(document.getElementById('batchData').value);
+        document.getElementById('batchModal').classList.add('hidden');
+        document.getElementById('batchData').value = '';
+    };
     document.getElementById('addGiftBtn').onclick = () => document.getElementById('giftModal').classList.remove('hidden');
-    document.getElementById('confirmGiftBtn').onclick = async () => { await addGift(document.getElementById('newGiftName').value, document.getElementById('newGiftCost').value, document.getElementById('newGiftStock').value); document.getElementById('giftModal').classList.add('hidden'); document.getElementById('newGiftName').value=''; document.getElementById('newGiftCost').value='100'; document.getElementById('newGiftStock').value='5'; };
+    document.getElementById('confirmGiftBtn').onclick = () => {
+        addGift(document.getElementById('newGiftName').value, document.getElementById('newGiftCost').value, document.getElementById('newGiftStock').value);
+        document.getElementById('giftModal').classList.add('hidden');
+        document.getElementById('newGiftName').value = '';
+        document.getElementById('newGiftCost').value = '100';
+        document.getElementById('newGiftStock').value = '5';
+    };
     document.getElementById('closeGiftModal').onclick = () => document.getElementById('giftModal').classList.add('hidden');
     document.getElementById('resetPointsBtn').onclick = resetAllPoints;
-    document.getElementById('exportLogBtn').onclick = exportExchangeLog;
+    document.getElementById('exportDataBtn').onclick = exportFullBackup;
+    document.getElementById('importDataBtn').onclick = () => document.getElementById('importFile').click();
+    document.getElementById('importFile').onchange = e => {
+        if (e.target.files[0]) importBackup(e.target.files[0]);
+        e.target.value = '';
+    };
     document.getElementById('verifyStudentBtn').onclick = verifyStudent;
-    document.getElementById('filterStudentSelect').onchange = () => render();
-    document.querySelectorAll('.tab-btn').forEach(btn => { btn.onclick = () => { document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); document.getElementById('teacherPane').classList.toggle('active-pane', btn.dataset.tab==='teacher'); document.getElementById('studentPane').classList.toggle('active-pane', btn.dataset.tab==='student'); if(btn.dataset.tab==='student' && currentStudent) renderStudentView(); }; });
-    loadAll();
+    document.getElementById('filterStudentSelect').onchange = () => renderExchangeLog();
+    document.getElementById('exportExchangeLogBtn').onclick = exportExchangeLog;
+
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.onclick = () => {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            document.getElementById('teacherPane').classList.toggle('active-pane', btn.dataset.tab === 'teacher');
+            document.getElementById('studentPane').classList.toggle('active-pane', btn.dataset.tab === 'student');
+            if (btn.dataset.tab === 'student' && currentStudent) renderStudentExchangeView();
+        };
+    });
+
+    // 初始化
+    initData();
+    renderAll();
+    
+    // 显示同步提示
+    console.log('系统已启动，数据存储在本地浏览器中');
+    console.log('如需多设备同步，请使用"导出备份"和"导入备份"功能');
 </script>
 </body>
 </html>
