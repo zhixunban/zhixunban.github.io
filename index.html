@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>浦江学堂智浔班积分系统</title>
-    <script src="https://imgcache.qq.com/qcloud/cloudbase-js-sdk/1.7.0/cloudbase.full.js"></script>
+    <script src="https://web-9gikcbug35bad3a8-1304825656.tcloudbaseapp.com/sdk/1.7.0/cloudbase.full.js"></script>
     <style>
         * { box-sizing: border-box; font-family: system-ui, 'Segoe UI', '微软雅黑', sans-serif; }
         body { background: #f0f7ff; margin: 0; padding: 20px; }
@@ -53,17 +53,15 @@
         .del-log-only { background: #fee2e2; border: none; padding: 4px 12px; border-radius: 40px; cursor: pointer; color: #b91c1c; font-size: 0.7rem; }
         .flex-between { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
         .sync-badge { background: #2b7a3e; color: white; padding: 4px 12px; border-radius: 40px; font-size: 0.7rem; }
-        .loading { text-align: center; padding: 40px; color: #666; }
-        .error-msg { background: #fee2e2; color: #b91c1c; padding: 15px; border-radius: 20px; margin: 20px 0; }
     </style>
 </head>
 <body>
 <div class="container">
     <div class="flex-between">
-        <h1>📚 浦江学堂智浔班积分系统 <span class="sync-badge">☁️ 云端同步</span></h1>
-        <button class="btn" id="exportExchangeLogBtn" style="background:#4a5568; color:white;">📋 导出兑换记录</button>
+        <h1>?? 浦江学堂智浔班积分系统 <span class="sync-badge">?? 云端同步</span></h1>
+        <button class="btn" id="exportExchangeLogBtn" style="background:#4a5568; color:white;">?? 导出兑换记录</button>
     </div>
-    <div class="sub">👩‍🏫 教师管理端 | 🧑‍🎓 学生自助兑换 | 所有设备数据实时同步</div>
+    <div class="sub">????? 教师管理端 | ????? 学生自助兑换 | 所有设备数据实时同步</div>
 
     <div class="tab-bar">
         <button class="tab-btn active" data-tab="teacher">教师管理后台</button>
@@ -71,31 +69,31 @@
     </div>
 
     <div id="teacherPane" class="tab-pane active-pane">
-        <div class="rank-card"><h3>🏆 积分排行榜</h3><ul class="rank-list" id="rankList">加载中...</ul></div>
+        <div class="rank-card"><h3>?? 积分排行榜</h3><ul class="rank-list" id="rankList">加载中...</ul></div>
         <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px;">
-            <button class="btn btn-primary" id="addStudentBtn">➕ 添加学生</button>
-            <button class="btn btn-success" id="batchImportBtn">📦 批量导入学生</button>
-            <button class="btn btn-primary" id="addGiftBtn">🎁 添加礼品</button>
-            <button class="btn btn-warning" id="resetPointsBtn">⚠️ 重置全班积分</button>
-            <button class="btn" id="exportDataBtn" style="background:#4a5568; color:white;">📋 导出全部数据(备份)</button>
-            <button class="btn" id="importDataBtn" style="background:#e2e8f0;">📂 导入数据备份</button>
+            <button class="btn btn-primary" id="addStudentBtn">? 添加学生</button>
+            <button class="btn btn-success" id="batchImportBtn">?? 批量导入学生</button>
+            <button class="btn btn-primary" id="addGiftBtn">?? 添加礼品</button>
+            <button class="btn btn-warning" id="resetPointsBtn">?? 重置全班积分</button>
+            <button class="btn" id="exportDataBtn" style="background:#4a5568; color:white;">?? 导出全部数据(备份)</button>
+            <button class="btn" id="importDataBtn" style="background:#e2e8f0;">?? 导入数据备份</button>
             <input type="file" id="importFile" accept=".json" style="display:none;">
         </div>
         <div class="table-wrapper"><table><thead><tr><th>姓名</th><th>学号</th><th>积分</th><th>操作</th></thead><tbody id="studentTableBody">加载中...</tbody></table></div>
-        <div><h3>🎁 礼品管理</h3><div id="giftGrid" class="card-grid">加载中...</div></div>
+        <div><h3>?? 礼品管理</h3><div id="giftGrid" class="card-grid">加载中...</div></div>
         <details open>
-            <summary style="cursor:pointer; font-weight:600;">📜 兑换记录（点击右侧按钮可删除/退还积分+库存）</summary>
+            <summary style="cursor:pointer; font-weight:600;">?? 兑换记录（点击右侧按钮可删除/退还积分+库存）</summary>
             <div class="log-filter" style="margin: 15px 0;"><span>按学生筛选：</span><select id="filterStudentSelect"><option value="">全部学生</option></select></div>
             <div id="exchangeLogList" class="log-list">加载中...</div>
         </details>
     </div>
 
     <div id="studentPane" class="tab-pane">
-        <div class="student-self-card"><h2>🎓 学生自助兑换</h2><p>请输入你的姓名和学号进行验证</p>
+        <div class="student-self-card"><h2>?? 学生自助兑换</h2><p>请输入你的姓名和学号进行验证</p>
             <div class="self-input-group"><input type="text" id="studentNameInput" placeholder="学生姓名"><input type="text" id="studentIdInput" placeholder="学号"><button class="btn btn-primary" id="verifyStudentBtn">验证并进入</button></div>
             <div id="studentInfo" class="student-info" style="display:none;"></div>
         </div>
-        <div id="studentGiftArea" style="display:none;"><h3>🎁 可兑换礼品</h3><div id="studentGiftGrid" class="card-grid"></div><h4>📋 我的兑换记录</h4><div id="studentOwnLogs" class="log-list"></div></div>
+        <div id="studentGiftArea" style="display:none;"><h3>?? 可兑换礼品</h3><div id="studentGiftGrid" class="card-grid"></div><h4>?? 我的兑换记录</h4><div id="studentOwnLogs" class="log-list"></div></div>
     </div>
 </div>
 
@@ -104,89 +102,38 @@
 <div id="batchModal" class="modal hidden"><div class="modal-card"><h3>批量导入学生</h3><p>每行格式：<strong>姓名,学号</strong></p><textarea id="batchData" rows="6" placeholder="张三,001&#10;李四,002"></textarea><div style="display:flex;gap:12px;margin-top:20px;"><button class="btn btn-primary" id="confirmBatchBtn">确认导入</button><button class="btn" id="closeBatchModal">取消</button></div></div></div>
 
 <script>
-    // ==================== 腾讯云开发配置 ====================
+    // 环境ID
     const ENV_ID = "class-points-d4gyd8p0t2e95fad1";
-    // ===================================================
+    let students = [], gifts = [], records = [], currentStudent = null;
+    let db = null;
+    let ready = false;
 
-    // 全局状态
-    let students = [];
-    let gifts = [];
-    let exchangeRecords = [];
-    let currentStudent = null;
-    let cloudReady = false;
-
-    // ==================== 初始化云开发 ====================
+    // 初始化云开发
     function initCloud() {
         try {
             if (typeof cloudbase === 'undefined') {
-                console.error('❌ 腾讯云SDK未加载');
+                console.error('? SDK未加载');
                 return false;
             }
-            const app = cloudbase.init({
-                env: ENV_ID
-            });
-            window.db = app.database();
-            cloudReady = true;
-            console.log('✅ 腾讯云开发连接成功，环境ID:', ENV_ID);
+            const app = cloudbase.init({ env: ENV_ID });
+            db = app.database();
+            ready = true;
+            console.log('? 云开发已连接');
             return true;
         } catch (e) {
-            console.error('❌ 云开发初始化失败:', e);
+            console.error('? 初始化失败:', e);
             return false;
         }
     }
 
-    // ==================== 数据库操作 ====================
-    async function dbAdd(collection, data) {
-        if (!cloudReady) throw new Error('云开发未就绪');
-        return await window.db.collection(collection).add(data);
-    }
-
-    async function dbGetAll(collection) {
-        if (!cloudReady) throw new Error('云开发未就绪');
-        const res = await window.db.collection(collection).get();
-        return res.data;
-    }
-
-    async function dbUpdate(collection, id, data) {
-        if (!cloudReady) throw new Error('云开发未就绪');
-        return await window.db.collection(collection).doc(id).update(data);
-    }
-
-    async function dbDelete(collection, id) {
-        if (!cloudReady) throw new Error('云开发未就绪');
-        return await window.db.collection(collection).doc(id).remove();
-    }
-
-    // ==================== 加载数据 ====================
-    async function loadAllData() {
-        if (!cloudReady) {
-            document.getElementById('studentTableBody').innerHTML = '<tr><td colspan="4">❌ 连接云端失败，请检查网络</td></tr>';
-            return;
-        }
-        try {
-            const [s, g, r] = await Promise.all([
-                dbGetAll('students'),
-                dbGetAll('gifts'),
-                dbGetAll('exchange_records')
-            ]);
-            students = s || [];
-            gifts = g || [];
-            exchangeRecords = r || [];
-            
-            // 如果没有数据，初始化
-            if (students.length === 0 && gifts.length === 0) {
-                await initDefaultData();
-                return await loadAllData();
-            }
-            
-            renderAll();
-        } catch (e) {
-            console.error('加载数据失败:', e);
-        }
-    }
+    // 数据库操作
+    async function addData(col, data) { return await db.collection(col).add(data); }
+    async function getData(col) { const res = await db.collection(col).get(); return res.data; }
+    async function updData(col, id, data) { return await db.collection(col).doc(id).update(data); }
+    async function delData(col, id) { return await db.collection(col).doc(id).remove(); }
 
     // 默认数据
-    const DEFAULT_STUDENTS = [
+    const defaultStudents = [
         { name: "杜佳融", studentId: "1", points: 372 },
         { name: "郭宸羲", studentId: "2", points: 420 },
         { name: "张俊一", studentId: "3", points: 44 },
@@ -223,377 +170,199 @@
         { name: "谢雨潼", studentId: "34", points: 166 },
         { name: "王杨滢", studentId: "35", points: 481 }
     ];
-
-    const DEFAULT_GIFTS = [
+    const defaultGifts = [
         { name: "免作业卡", cost: 120, stock: 10 },
         { name: "小零食组合", cost: 200, stock: 8 },
         { name: "班级表扬信", cost: 80, stock: 20 },
         { name: "自选同桌体验卡", cost: 300, stock: 5 }
     ];
 
-    async function initDefaultData() {
+    async function loadData() {
+        if (!ready) return;
         try {
-            for (let s of DEFAULT_STUDENTS) {
-                await dbAdd('students', s);
+            const [s, g, r] = await Promise.all([getData('students'), getData('gifts'), getData('exchange_records')]);
+            students = s || []; gifts = g || []; records = r || [];
+            if (students.length === 0 && gifts.length === 0) {
+                for (let s of defaultStudents) await addData('students', s);
+                for (let g of defaultGifts) await addData('gifts', g);
+                return loadData();
             }
-            for (let g of DEFAULT_GIFTS) {
-                await dbAdd('gifts', g);
-            }
-            console.log('✅ 默认数据初始化成功');
-        } catch (e) {
-            console.error('初始化失败:', e);
-        }
+            renderAll();
+        } catch (e) { console.error('加载失败:', e); }
     }
 
-    // ==================== 渲染函数 ====================
-    function escapeHtml(s) { if (!s) return ''; return String(s).replace(/[&<>]/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[m])); }
-
     function renderAll() {
-        renderStudentTable();
-        renderGiftList();
-        renderRanking();
-        renderExchangeLog();
-        updateFilterSelect();
+        renderStudentTable(); renderGiftList(); renderRanking(); renderExchangeLog(); updateFilterSelect();
         if (currentStudent) renderStudentView();
     }
 
+    function escapeHtml(s) { if (!s) return ''; return String(s).replace(/[&<>]/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[m])); }
+
     function renderStudentTable() {
         const tbody = document.getElementById('studentTableBody');
-        if (!students || !students.length) {
-            tbody.innerHTML = '<tr><td colspan="4">暂无学生，请添加</td></tr>';
-            return;
-        }
-        tbody.innerHTML = students.map(s => `<tr>
-                <td>${escapeHtml(s.name)}</td>
-                <td>${escapeHtml(s.studentId || '-')}</td>
-                <td class="score-cell">${s.points} 分</td>
-                <td>
-                    <button class="small-btn small-add" onclick="changePoints('${s._id}', 'add')">➕加分</button>
-                    <button class="small-btn small-sub" onclick="changePoints('${s._id}', 'sub')">➖减分</button>
-                    <button class="small-btn small-del" onclick="deleteStudent('${s._id}')">🗑️删除</button>
-                 </td>
-             </tr>`).join('');
+        if (!students || !students.length) { tbody.innerHTML = '<tr><td colspan="4">暂无学生</td></tr>'; return; }
+        tbody.innerHTML = students.map(s => `<tr><td>${escapeHtml(s.name)}</td><td>${escapeHtml(s.studentId||'-')}</td><td class="score-cell">${s.points} 分</td><td><button class="small-btn small-add" onclick="changePoints('${s._id}','add')">?加分</button><button class="small-btn small-sub" onclick="changePoints('${s._id}','sub')">?减分</button><button class="small-btn small-del" onclick="deleteStudent('${s._id}')">???删除</button></td></tr>`).join('');
     }
 
     window.changePoints = async function(id, type) {
-        const student = students.find(s => s._id === id);
-        if (!student) return;
-        let val = parseInt(prompt(`请输入要${type === 'add' ? '加' : '减'}的积分`, "10"));
-        if (isNaN(val) || val <= 0) return alert("请输入正整数");
-        const newPoints = type === 'add' ? student.points + val : Math.max(0, student.points - val);
-        try {
-            await dbUpdate('students', id, { points: newPoints });
-            await loadAllData();
-        } catch (e) { alert('操作失败'); }
+        const s = students.find(x=>x._id===id); if(!s) return;
+        let val = parseInt(prompt(`要${type==='add'?'加':'减'}多少分`,"10"));
+        if(isNaN(val)||val<=0) return alert("正整数");
+        const np = type==='add' ? s.points+val : Math.max(0, s.points-val);
+        try { await updData('students', id, { points: np }); loadData(); } catch(e) { alert('操作失败'); }
     };
 
-    window.deleteStudent = async function(id) {
-        if (!confirm("确定删除？")) return;
-        try {
-            await dbDelete('students', id);
-            await loadAllData();
-        } catch (e) { alert('删除失败'); }
-    };
+    window.deleteStudent = async function(id) { if(!confirm("删除？")) return; try { await delData('students', id); loadData(); } catch(e) { alert('失败'); } };
 
     function renderGiftList() {
         const container = document.getElementById('giftGrid');
-        if (!gifts || !gifts.length) {
-            container.innerHTML = '<div>暂无礼品，请添加</div>';
-            return;
-        }
-        container.innerHTML = gifts.map(g => `
-            <div class="gift-card">
-                <div class="gift-name">🎁 ${escapeHtml(g.name)}</div>
-                <div class="gift-cost">💰 ${g.cost} 积分</div>
-                <div class="gift-stock">📦 剩余 ${g.stock} 份</div>
-                <button class="exchange-btn" onclick="teacherExchange('${g._id}')">兑换（教师）</button>
-                <button class="delete-gift-btn" onclick="deleteGift('${g._id}')">删除</button>
-            </div>
-        `).join('');
+        if (!gifts || !gifts.length) { container.innerHTML = '<div>暂无礼品</div>'; return; }
+        container.innerHTML = gifts.map(g => `<div class="gift-card"><div class="gift-name">?? ${escapeHtml(g.name)}</div><div class="gift-cost">?? ${g.cost} 积分</div><div class="gift-stock">?? 剩余 ${g.stock}</div><button class="exchange-btn" onclick="teacherExchange('${g._id}')">教师兑换</button><button class="delete-gift-btn" onclick="deleteGift('${g._id}')">删除</button></div>`).join('');
     }
 
-    window.teacherExchange = async function(giftId) {
-        const gift = gifts.find(g => g._id === giftId);
-        if (!gift || gift.stock <= 0) return alert("库存不足");
-        const name = prompt("学生姓名");
-        const student = students.find(s => s.name === name?.trim());
-        if (!student) return alert("未找到");
-        if (student.points < gift.cost) return alert(`积分不足`);
+    window.teacherExchange = async function(gid) {
+        const g = gifts.find(x=>x._id===gid); if(!g||g.stock<=0) return alert("库存不足");
+        const name = prompt("学生姓名"); const s = students.find(x=>x.name===name?.trim());
+        if(!s) return alert("未找到"); if(s.points<g.cost) return alert("积分不足");
         try {
-            await dbUpdate('students', student._id, { points: student.points - gift.cost });
-            await dbUpdate('gifts', giftId, { stock: gift.stock - 1 });
-            await dbAdd('exchange_records', {
-                studentId: student._id,
-                studentName: student.name,
-                giftName: gift.name,
-                giftId: giftId,
-                cost: gift.cost,
-                pointsAfter: student.points - gift.cost,
-                date: new Date().toISOString()
-            });
-            await loadAllData();
-            alert('兑换成功');
-        } catch (e) { alert('兑换失败'); }
+            await updData('students', s._id, { points: s.points - g.cost });
+            await updData('gifts', gid, { stock: g.stock - 1 });
+            await addData('exchange_records', { studentId: s._id, studentName: s.name, giftName: g.name, giftId: gid, cost: g.cost, pointsAfter: s.points - g.cost, date: new Date().toISOString() });
+            loadData(); alert('兑换成功');
+        } catch(e) { alert('失败'); }
     };
 
-    window.deleteGift = async function(id) {
-        if (!confirm("删除？")) return;
-        try { await dbDelete('gifts', id); await loadAllData(); } catch(e) { alert('删除失败'); }
-    };
+    window.deleteGift = async function(id) { if(!confirm("删除？")) return; try { await delData('gifts', id); loadData(); } catch(e) { alert('失败'); } };
 
-    window.deleteExchangeRecord = async function(index, refund) {
-        const record = exchangeRecords[index];
-        if (!record) return;
-        if (!confirm(refund ? "删除并退还积分？" : "确定删除？")) return;
+    window.deleteExchangeRecord = async function(idx, refund) {
+        const r = records[idx]; if(!r) return;
+        if(!confirm(refund?"删除并退还？":"确定删除？")) return;
         try {
-            if (refund) {
-                const student = students.find(s => s._id === record.studentId);
-                if (student) await dbUpdate('students', student._id, { points: student.points + record.cost });
-                if (record.giftId) {
-                    const gift = gifts.find(g => g._id === record.giftId);
-                    if (gift) await dbUpdate('gifts', gift._id, { stock: gift.stock + 1 });
-                }
+            if(refund) {
+                const s = students.find(x=>x._id===r.studentId);
+                if(s) await updData('students', s._id, { points: s.points + r.cost });
+                const g = gifts.find(x=>x._id===r.giftId);
+                if(g) await updData('gifts', g._id, { stock: g.stock + 1 });
             }
-            await dbDelete('exchange_records', record._id);
-            await loadAllData();
-            alert('已删除');
-        } catch(e) { alert('操作失败'); }
+            await delData('exchange_records', r._id);
+            loadData(); alert('已删除');
+        } catch(e) { alert('失败'); }
     };
 
     function renderExchangeLog() {
-        const select = document.getElementById('filterStudentSelect');
-        const filterId = select.value || null;
-        let filtered = filterId ? exchangeRecords.filter(r => r.studentId === filterId) : exchangeRecords;
+        const filterId = document.getElementById('filterStudentSelect').value || null;
+        let filtered = filterId ? records.filter(r=>r.studentId===filterId) : records;
         const container = document.getElementById('exchangeLogList');
-        if (!filtered || !filtered.length) {
-            container.innerHTML = '暂无记录';
-            return;
-        }
-        container.innerHTML = filtered.map((r, idx) => {
-            const originalIndex = exchangeRecords.findIndex(er => er._id === r._id);
-            return `
-                <div class="log-item">
-                    <span>📅 ${new Date(r.date).toLocaleString()} | ${escapeHtml(r.studentName)} 兑换【${escapeHtml(r.giftName)}】花费 ${r.cost} 分，剩余 ${r.pointsAfter} 分</span>
-                    <span>
-                        <button class="del-log-refund" onclick="deleteExchangeRecord(${originalIndex}, true)">🗑️ 删除并退还</button>
-                        <button class="del-log-only" onclick="deleteExchangeRecord(${originalIndex}, false)">🗑️ 仅删除</button>
-                    </span>
-                </div>
-            `;
+        if(!filtered||!filtered.length){ container.innerHTML='暂无记录'; return; }
+        container.innerHTML = filtered.map((r,idx) => {
+            const oi = records.findIndex(er=>er._id===r._id);
+            return `<div class="log-item"><span>?? ${new Date(r.date).toLocaleString()} | ${escapeHtml(r.studentName)} 兑换【${escapeHtml(r.giftName)}】花费 ${r.cost} 分，剩余 ${r.pointsAfter} 分</span><span><button class="del-log-refund" onclick="deleteExchangeRecord(${oi}, true)">??? 删除并退还</button><button class="del-log-only" onclick="deleteExchangeRecord(${oi}, false)">??? 仅删除</button></span></div>`;
         }).join('');
     }
 
     function updateFilterSelect() {
         const sel = document.getElementById('filterStudentSelect');
-        if (!students || !students.length) {
-            sel.innerHTML = '<option value="">全部学生</option>';
-            return;
-        }
-        sel.innerHTML = '<option value="">全部学生</option>' + students.map(s => `<option value="${s._id}">${escapeHtml(s.name)}</option>`).join('');
+        if(!students||!students.length){ sel.innerHTML='<option value="">全部学生</option>'; return; }
+        sel.innerHTML = '<option value="">全部学生</option>' + students.map(s=>`<option value="${s._id}">${escapeHtml(s.name)}</option>`).join('');
     }
 
     function renderRanking() {
-        const sorted = [...(students || [])].sort((a,b) => b.points - a.points).slice(0,5);
+        const sorted = [...(students||[])].sort((a,b)=>b.points-a.points).slice(0,5);
         const rankDiv = document.getElementById('rankList');
-        if (!sorted || !sorted.length) {
-            rankDiv.innerHTML = '<li>暂无学生</li>';
-            return;
-        }
-        rankDiv.innerHTML = sorted.map((s,i) => `<li><span>${i+1}. ${escapeHtml(s.name)}</span> <strong>${s.points}</strong> 分</li>`).join('');
+        if(!sorted||!sorted.length){ rankDiv.innerHTML='<li>暂无学生</li>'; return; }
+        rankDiv.innerHTML = sorted.map((s,i)=>`<li>${i+1}. ${escapeHtml(s.name)} <strong>${s.points}</strong> 分</li>`).join('');
     }
 
     async function verifyStudent() {
         const name = document.getElementById('studentNameInput').value.trim();
         const sid = document.getElementById('studentIdInput').value.trim();
-        const student = students.find(s => s.name === name && s.studentId === sid);
-        if (!student) { alert("验证失败"); return; }
-        currentStudent = student;
-        document.getElementById('studentInfo').innerHTML = `✅ 欢迎，${escapeHtml(student.name)} | 当前积分: <strong>${student.points}</strong> 分`;
+        const s = students.find(x=>x.name===name && x.studentId===sid);
+        if(!s){ alert("验证失败"); return; }
+        currentStudent = s;
+        document.getElementById('studentInfo').innerHTML = `? 欢迎，${escapeHtml(s.name)} | 当前积分: <strong>${s.points}</strong> 分`;
         document.getElementById('studentInfo').style.display = 'block';
         document.getElementById('studentGiftArea').style.display = 'block';
         renderStudentView();
     }
 
     function renderStudentView() {
-        if (!currentStudent) return;
-        const available = (gifts || []).filter(g => g.stock > 0);
+        if(!currentStudent) return;
+        const ava = (gifts||[]).filter(g=>g.stock>0);
         const container = document.getElementById('studentGiftGrid');
-        if (!available || !available.length) {
-            container.innerHTML = '<div>暂无礼品可兑换</div>';
-        } else {
-            container.innerHTML = available.map(g => `
-                <div class="gift-card">
-                    <div class="gift-name">🎁 ${escapeHtml(g.name)}</div>
-                    <div class="gift-cost">💰 ${g.cost} 积分</div>
-                    <div class="gift-stock">📦 剩余 ${g.stock} 份</div>
-                    <button class="exchange-btn" onclick="studentExchange('${g._id}')">立即兑换</button>
-                </div>
-            `).join('');
-        }
-        const myLogs = exchangeRecords.filter(r => r.studentId === currentStudent._id);
+        if(!ava||!ava.length){ container.innerHTML='<div>暂无礼品</div>'; return; }
+        container.innerHTML = ava.map(g=>`<div class="gift-card"><div class="gift-name">?? ${escapeHtml(g.name)}</div><div class="gift-cost">?? ${g.cost} 积分</div><div class="gift-stock">?? 剩余 ${g.stock}</div><button class="exchange-btn" onclick="studentExchange('${g._id}')">立即兑换</button></div>`).join('');
+        const my = records.filter(r=>r.studentId===currentStudent._id);
         const logDiv = document.getElementById('studentOwnLogs');
-        if (!myLogs || !myLogs.length) {
-            logDiv.innerHTML = '暂无兑换记录';
-        } else {
-            logDiv.innerHTML = myLogs.map(r => `<div class="log-item">📅 ${new Date(r.date).toLocaleString()} 兑换【${escapeHtml(r.giftName)}】花费 ${r.cost} 分，剩余 ${r.pointsAfter} 分</div>`).join('');
-        }
+        if(!my||!my.length){ logDiv.innerHTML='暂无记录'; return; }
+        logDiv.innerHTML = my.map(r=>`<div class="log-item">?? ${new Date(r.date).toLocaleString()} 兑换【${escapeHtml(r.giftName)}】花费 ${r.cost} 分，剩余 ${r.pointsAfter} 分</div>`).join('');
     }
 
-    window.studentExchange = async function(giftId) {
-        if (!currentStudent) return;
-        const gift = gifts.find(g => g._id === giftId);
-        if (!gift || gift.stock <= 0) return alert("库存不足");
-        if (currentStudent.points < gift.cost) return alert(`积分不足`);
+    window.studentExchange = async function(gid) {
+        if(!currentStudent) return;
+        const g = gifts.find(x=>x._id===gid); if(!g||g.stock<=0) return alert("库存不足");
+        if(currentStudent.points<g.cost) return alert("积分不足");
         try {
-            await dbUpdate('students', currentStudent._id, { points: currentStudent.points - gift.cost });
-            await dbUpdate('gifts', giftId, { stock: gift.stock - 1 });
-            await dbAdd('exchange_records', {
-                studentId: currentStudent._id,
-                studentName: currentStudent.name,
-                giftName: gift.name,
-                giftId: giftId,
-                cost: gift.cost,
-                pointsAfter: currentStudent.points - gift.cost,
-                date: new Date().toISOString()
-            });
-            await loadAllData();
-            currentStudent = students.find(s => s._id === currentStudent._id);
-            document.getElementById('studentInfo').innerHTML = `✅ 欢迎，${escapeHtml(currentStudent.name)} | 当前积分: <strong>${currentStudent.points}</strong> 分`;
+            await updData('students', currentStudent._id, { points: currentStudent.points - g.cost });
+            await updData('gifts', gid, { stock: g.stock - 1 });
+            await addData('exchange_records', { studentId: currentStudent._id, studentName: currentStudent.name, giftName: g.name, giftId: gid, cost: g.cost, pointsAfter: currentStudent.points - g.cost, date: new Date().toISOString() });
+            loadData();
+            currentStudent = students.find(s=>s._id===currentStudent._id);
+            document.getElementById('studentInfo').innerHTML = `? 欢迎，${escapeHtml(currentStudent.name)} | 当前积分: <strong>${currentStudent.points}</strong> 分`;
             renderStudentView();
             alert('兑换成功！');
-        } catch(e) { alert('兑换失败'); }
+        } catch(e) { alert('失败'); }
     };
 
-    async function addStudent(name, sid) {
-        if (!name.trim()) return alert("请输入姓名");
-        try {
-            await dbAdd('students', { name: name.trim(), studentId: sid.trim() || name, points: 0 });
-            await loadAllData();
-        } catch(e) { alert('添加失败'); }
-    }
+    async function addStudent(name, sid) { if(!name.trim()) return alert("请输入姓名"); try { await addData('students', { name: name.trim(), studentId: sid.trim()||name, points: 0 }); loadData(); } catch(e){ alert('失败'); } }
+    async function batchAddStudents(text) { const lines=text.trim().split(/\r?\n/); let added=0; for(let l of lines){ l=l.trim(); if(!l) continue; let[n,sid]=l.split(','); n=n?.trim(); if(n){ await addData('students', { name:n, studentId:sid?.trim()||n, points:0 }); added++; } } loadData(); alert(`导入 ${added} 人`); }
+    async function addGift(n,c,s){ if(!n.trim()) return alert("请输入礼品名"); try{ await addData('gifts', { name:n.trim(), cost:parseInt(c), stock:parseInt(s) }); loadData(); } catch(e){ alert('失败'); } }
+    async function resetAllPoints(){ if(!confirm("重置全班积分？")) return; for(let s of students) await updData('students', s._id, { points: 0 }); loadData(); alert("已重置"); }
+    function exportFullBackup(){ const data={ students, gifts, records }; const blob=new Blob([JSON.stringify(data)],{type:"application/json"}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=`备份_${Date.now()}.json`; a.click(); }
+    function importBackup(file){ const reader=new FileReader(); reader.onload=async e=>{ try{ const d=JSON.parse(e.target.result); for(let s of students) await delData('students', s._id).catch(()=>{}); for(let g of gifts) await delData('gifts', g._id).catch(()=>{}); for(let r of records) await delData('exchange_records', r._id).catch(()=>{}); if(d.students) for(let s of d.students) await addData('students', { name:s.name, studentId:s.studentId||s.student_id, points:s.points }); if(d.gifts) for(let g of d.gifts) await addData('gifts', { name:g.name, cost:g.cost, stock:g.stock }); if(d.records) for(let r of d.records) await addData('exchange_records', { studentId:r.studentId, studentName:r.studentName, giftName:r.giftName, giftId:r.giftId, cost:r.cost, pointsAfter:r.pointsAfter, date:r.date||new Date().toISOString() }); loadData(); alert("导入成功"); } catch(err){ alert("文件错误"); } }; reader.readAsText(file); }
+    function exportExchangeLog(){ if(!records||!records.length){ alert("暂无记录"); return; } let csv=[["时间","学生","礼品","花费","剩余"]]; for(let r of records) csv.push([new Date(r.date).toLocaleString(), r.studentName, r.giftName, r.cost, r.pointsAfter]); let blob=new Blob(["\uFEFF"+csv.map(row=>row.join(",")).join("\n")],{type:"text/csv"}); let a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=`兑换记录_${Date.now()}.csv`; a.click(); }
 
-    async function batchAddStudents(text) {
-        const lines = text.trim().split(/\r?\n/);
-        let added = 0;
-        try {
-            for (let line of lines) {
-                line = line.trim(); if (!line) continue;
-                let [name, sid] = line.split(','); name = name?.trim();
-                if (name) { await dbAdd('students', { name, studentId: sid?.trim() || name, points: 0 }); added++; }
-            }
-            await loadAllData();
-            alert(`导入 ${added} 人`);
-        } catch(e) { alert('导入失败'); }
-    }
-
-    async function addGift(n,c,s) {
-        if (!n.trim()) return alert("请输入礼品名");
-        try {
-            await dbAdd('gifts', { name: n.trim(), cost: parseInt(c), stock: parseInt(s) });
-            await loadAllData();
-        } catch(e) { alert('添加失败'); }
-    }
-
-    async function resetAllPoints() {
-        if (!confirm("重置全班积分？")) return;
-        try {
-            for (let s of students) await dbUpdate('students', s._id, { points: 0 });
-            await loadAllData();
-            alert("已重置");
-        } catch(e) { alert('重置失败'); }
-    }
-
-    function exportFullBackup() {
-        const data = { students, gifts, exchangeRecords };
-        const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
-        const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `备份_${Date.now()}.json`; a.click();
-    }
-
-    function importBackup(file) {
-        const reader = new FileReader();
-        reader.onload = async e => {
-            try {
-                const data = JSON.parse(e.target.result);
-                for (let s of students) await dbDelete('students', s._id).catch(()=>{});
-                for (let g of gifts) await dbDelete('gifts', g._id).catch(()=>{});
-                for (let r of exchangeRecords) await dbDelete('exchange_records', r._id).catch(()=>{});
-                if (data.students) for (let s of data.students) await dbAdd('students', { name: s.name, studentId: s.studentId || s.student_id, points: s.points });
-                if (data.gifts) for (let g of data.gifts) await dbAdd('gifts', { name: g.name, cost: g.cost, stock: g.stock });
-                if (data.exchangeRecords) for (let r of data.exchangeRecords) await dbAdd('exchange_records', { studentId: r.studentId, studentName: r.studentName, giftName: r.giftName, giftId: r.giftId, cost: r.cost, pointsAfter: r.pointsAfter, date: r.date || new Date().toISOString() });
-                await loadAllData();
-                alert("导入成功");
-            } catch(err) { alert("文件格式错误"); }
-        };
-        reader.readAsText(file);
-    }
-
-    function exportExchangeLog() {
-        if (!exchangeRecords || !exchangeRecords.length) { alert("暂无记录"); return; }
-        let csv = [["时间","学生","礼品","花费","剩余"]];
-        for (let r of exchangeRecords) csv.push([new Date(r.date).toLocaleString(), r.studentName, r.giftName, r.cost, r.pointsAfter]);
-        let content = csv.map(row => row.join(",")).join("\n");
-        let blob = new Blob(["\uFEFF" + content], { type: "text/csv" });
-        let a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `兑换记录_${Date.now()}.csv`; a.click();
-    }
-
-    // ==================== 事件绑定 ====================
+    // 绑定事件
     document.getElementById('addStudentBtn').onclick = () => document.getElementById('studentModal').classList.remove('hidden');
-    document.getElementById('confirmStudentBtn').onclick = async () => {
-        await addStudent(document.getElementById('newStudentName').value, document.getElementById('newStudentId').value);
-        document.getElementById('studentModal').classList.add('hidden');
-        document.getElementById('newStudentName').value = ''; document.getElementById('newStudentId').value = '';
-    };
+    document.getElementById('confirmStudentBtn').onclick = async () => { await addStudent(document.getElementById('newStudentName').value, document.getElementById('newStudentId').value); document.getElementById('studentModal').classList.add('hidden'); document.getElementById('newStudentName').value=''; document.getElementById('newStudentId').value=''; };
     document.getElementById('closeStudentModal').onclick = () => document.getElementById('studentModal').classList.add('hidden');
     document.getElementById('batchImportBtn').onclick = () => document.getElementById('batchModal').classList.remove('hidden');
     document.getElementById('closeBatchModal').onclick = () => document.getElementById('batchModal').classList.add('hidden');
-    document.getElementById('confirmBatchBtn').onclick = async () => {
-        await batchAddStudents(document.getElementById('batchData').value);
-        document.getElementById('batchModal').classList.add('hidden');
-        document.getElementById('batchData').value = '';
-    };
+    document.getElementById('confirmBatchBtn').onclick = async () => { await batchAddStudents(document.getElementById('batchData').value); document.getElementById('batchModal').classList.add('hidden'); document.getElementById('batchData').value=''; };
     document.getElementById('addGiftBtn').onclick = () => document.getElementById('giftModal').classList.remove('hidden');
-    document.getElementById('confirmGiftBtn').onclick = async () => {
-        await addGift(document.getElementById('newGiftName').value, document.getElementById('newGiftCost').value, document.getElementById('newGiftStock').value);
-        document.getElementById('giftModal').classList.add('hidden');
-        document.getElementById('newGiftName').value = ''; document.getElementById('newGiftCost').value = '100'; document.getElementById('newGiftStock').value = '5';
-    };
+    document.getElementById('confirmGiftBtn').onclick = async () => { await addGift(document.getElementById('newGiftName').value, document.getElementById('newGiftCost').value, document.getElementById('newGiftStock').value); document.getElementById('giftModal').classList.add('hidden'); document.getElementById('newGiftName').value=''; document.getElementById('newGiftCost').value='100'; document.getElementById('newGiftStock').value='5'; };
     document.getElementById('closeGiftModal').onclick = () => document.getElementById('giftModal').classList.add('hidden');
     document.getElementById('resetPointsBtn').onclick = resetAllPoints;
     document.getElementById('exportDataBtn').onclick = exportFullBackup;
     document.getElementById('importDataBtn').onclick = () => document.getElementById('importFile').click();
-    document.getElementById('importFile').onchange = e => { if(e.target.files[0]) importBackup(e.target.files[0]); e.target.value = ''; };
+    document.getElementById('importFile').onchange = e => { if(e.target.files[0]) importBackup(e.target.files[0]); e.target.value=''; };
     document.getElementById('verifyStudentBtn').onclick = verifyStudent;
     document.getElementById('filterStudentSelect').onchange = () => renderExchangeLog();
     document.getElementById('exportExchangeLogBtn').onclick = exportExchangeLog;
 
     document.querySelectorAll('.tab-btn').forEach(btn => {
         btn.onclick = () => {
-            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
             btn.classList.add('active');
-            document.getElementById('teacherPane').classList.toggle('active-pane', btn.dataset.tab === 'teacher');
-            document.getElementById('studentPane').classList.toggle('active-pane', btn.dataset.tab === 'student');
-            if (btn.dataset.tab === 'student' && currentStudent) renderStudentView();
+            document.getElementById('teacherPane').classList.toggle('active-pane', btn.dataset.tab==='teacher');
+            document.getElementById('studentPane').classList.toggle('active-pane', btn.dataset.tab==='student');
+            if(btn.dataset.tab==='student' && currentStudent) renderStudentView();
         };
     });
 
-    // ==================== 启动 ====================
+    // 启动
     function start() {
-        const sdkLoaded = typeof cloudbase !== 'undefined';
-        console.log('SDK加载状态:', sdkLoaded ? '✅ 已加载' : '❌ 未加载');
         console.log('环境ID:', ENV_ID);
-        
-        if (sdkLoaded) {
-            const ok = initCloud();
-            if (ok) {
-                loadAllData();
+        console.log('SDK状态:', typeof cloudbase !== 'undefined' ? '? 已加载' : '? 未加载');
+        if (typeof cloudbase !== 'undefined') {
+            if (initCloud()) {
+                loadData();
             } else {
-                document.getElementById('studentTableBody').innerHTML = '<tr><td colspan="4">❌ 云开发初始化失败，请检查环境ID</td></tr>';
-                document.getElementById('giftGrid').innerHTML = '<div>❌ 云开发初始化失败</div>';
+                document.getElementById('studentTableBody').innerHTML = '<tr><td colspan="4">? 云开发初始化失败</td></tr>';
             }
         } else {
-            document.getElementById('studentTableBody').innerHTML = '<tr><td colspan="4">❌ SDK加载失败，请检查网络</td></tr>';
-            document.getElementById('giftGrid').innerHTML = '<div>❌ SDK加载失败</div>';
-            document.getElementById('rankList').innerHTML = '<li>❌ SDK加载失败</li>';
+            document.getElementById('studentTableBody').innerHTML = '<tr><td colspan="4">? SDK加载失败，请检查网络</td></tr>';
+            document.getElementById('giftGrid').innerHTML = '<div>? SDK加载失败</div>';
+            document.getElementById('rankList').innerHTML = '<li>? SDK加载失败</li>';
         }
     }
 
