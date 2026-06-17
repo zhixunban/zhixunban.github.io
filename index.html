@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>浦江学堂智浔班积分系统</title>
-    <script src="https://web-9gikcbug35bad3a8-1304825656.tcloudbaseapp.com/sdk/1.7.0/cloudbase.full.js"></script>
     <style>
         * { box-sizing: border-box; font-family: system-ui, 'Segoe UI', '微软雅黑', sans-serif; }
         body { background: #f0f7ff; margin: 0; padding: 20px; }
@@ -44,7 +43,7 @@
         .log-list { background: #f8fafc; border-radius: 20px; padding: 12px; max-height: 280px; overflow-y: auto; }
         .log-item { border-bottom: 1px solid #e2e8f0; padding: 8px 0; font-size: 0.85rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
         input, select, textarea { padding: 10px 14px; border-radius: 60px; border: 1px solid #cad2db; width: 100%; margin: 8px 0; }
-        .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); display: flex; align-items: center; justify-content: center; z-index: 1000; }
+        .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 1000; }
         .modal-card { background: white; border-radius: 32px; padding: 24px; max-width: 450px; width: 90%; }
         .hidden { display: none; }
         .exchange-btn { background: #ffedd5; border: none; padding: 8px 0; width: 100%; border-radius: 60px; font-weight: bold; cursor: pointer; margin-top: 10px; }
@@ -58,10 +57,10 @@
 <body>
 <div class="container">
     <div class="flex-between">
-        <h1>?? 浦江学堂智浔班积分系统 <span class="sync-badge">?? 云端同步</span></h1>
-        <button class="btn" id="exportExchangeLogBtn" style="background:#4a5568; color:white;">?? 导出兑换记录</button>
+        <h1>📚 浦江学堂智浔班积分系统 <span class="sync-badge">☁️ 云端同步</span></h1>
+        <button class="btn" id="exportExchangeLogBtn" style="background:#4a5568; color:white;">📋 导出兑换记录</button>
     </div>
-    <div class="sub">????? 教师管理端 | ????? 学生自助兑换 | 所有设备数据实时同步</div>
+    <div class="sub">👩‍🏫 教师管理端 | 🧑‍🎓 学生自助兑换 | 所有设备数据实时同步</div>
 
     <div class="tab-bar">
         <button class="tab-btn active" data-tab="teacher">教师管理后台</button>
@@ -69,31 +68,31 @@
     </div>
 
     <div id="teacherPane" class="tab-pane active-pane">
-        <div class="rank-card"><h3>?? 积分排行榜</h3><ul class="rank-list" id="rankList">加载中...</ul></div>
+        <div class="rank-card"><h3>🏆 积分排行榜</h3><ul class="rank-list" id="rankList">加载中...</ul></div>
         <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px;">
-            <button class="btn btn-primary" id="addStudentBtn">? 添加学生</button>
-            <button class="btn btn-success" id="batchImportBtn">?? 批量导入学生</button>
-            <button class="btn btn-primary" id="addGiftBtn">?? 添加礼品</button>
-            <button class="btn btn-warning" id="resetPointsBtn">?? 重置全班积分</button>
-            <button class="btn" id="exportDataBtn" style="background:#4a5568; color:white;">?? 导出全部数据(备份)</button>
-            <button class="btn" id="importDataBtn" style="background:#e2e8f0;">?? 导入数据备份</button>
+            <button class="btn btn-primary" id="addStudentBtn">➕ 添加学生</button>
+            <button class="btn btn-success" id="batchImportBtn">📦 批量导入学生</button>
+            <button class="btn btn-primary" id="addGiftBtn">🎁 添加礼品</button>
+            <button class="btn btn-warning" id="resetPointsBtn">⚠️ 重置全班积分</button>
+            <button class="btn" id="exportDataBtn" style="background:#4a5568; color:white;">📋 导出全部数据(备份)</button>
+            <button class="btn" id="importDataBtn" style="background:#e2e8f0;">📂 导入数据备份</button>
             <input type="file" id="importFile" accept=".json" style="display:none;">
         </div>
         <div class="table-wrapper"><table><thead><tr><th>姓名</th><th>学号</th><th>积分</th><th>操作</th></thead><tbody id="studentTableBody">加载中...</tbody></table></div>
-        <div><h3>?? 礼品管理</h3><div id="giftGrid" class="card-grid">加载中...</div></div>
+        <div><h3>🎁 礼品管理</h3><div id="giftGrid" class="card-grid">加载中...</div></div>
         <details open>
-            <summary style="cursor:pointer; font-weight:600;">?? 兑换记录（点击右侧按钮可删除/退还积分+库存）</summary>
+            <summary style="cursor:pointer; font-weight:600;">📜 兑换记录（点击右侧按钮可删除/退还积分+库存）</summary>
             <div class="log-filter" style="margin: 15px 0;"><span>按学生筛选：</span><select id="filterStudentSelect"><option value="">全部学生</option></select></div>
             <div id="exchangeLogList" class="log-list">加载中...</div>
         </details>
     </div>
 
     <div id="studentPane" class="tab-pane">
-        <div class="student-self-card"><h2>?? 学生自助兑换</h2><p>请输入你的姓名和学号进行验证</p>
+        <div class="student-self-card"><h2>🎓 学生自助兑换</h2><p>请输入你的姓名和学号进行验证</p>
             <div class="self-input-group"><input type="text" id="studentNameInput" placeholder="学生姓名"><input type="text" id="studentIdInput" placeholder="学号"><button class="btn btn-primary" id="verifyStudentBtn">验证并进入</button></div>
             <div id="studentInfo" class="student-info" style="display:none;"></div>
         </div>
-        <div id="studentGiftArea" style="display:none;"><h3>?? 可兑换礼品</h3><div id="studentGiftGrid" class="card-grid"></div><h4>?? 我的兑换记录</h4><div id="studentOwnLogs" class="log-list"></div></div>
+        <div id="studentGiftArea" style="display:none;"><h3>🎁 可兑换礼品</h3><div id="studentGiftGrid" class="card-grid"></div><h4>📋 我的兑换记录</h4><div id="studentOwnLogs" class="log-list"></div></div>
     </div>
 </div>
 
@@ -102,271 +101,345 @@
 <div id="batchModal" class="modal hidden"><div class="modal-card"><h3>批量导入学生</h3><p>每行格式：<strong>姓名,学号</strong></p><textarea id="batchData" rows="6" placeholder="张三,001&#10;李四,002"></textarea><div style="display:flex;gap:12px;margin-top:20px;"><button class="btn btn-primary" id="confirmBatchBtn">确认导入</button><button class="btn" id="closeBatchModal">取消</button></div></div></div>
 
 <script>
-    // 环境ID
-    const ENV_ID = "class-points-d4gyd8p0t2e95fad1";
-    let students = [], gifts = [], records = [], currentStudent = null;
-    let db = null;
-    let ready = false;
+    // ==================== Supabase 配置 ====================
+    const SUPABASE_URL = "https://qlpmfrzdmtxyunrlzhiw.supabase.co";
+    const SUPABASE_ANON_KEY = "sb_publishable_iAood7Ru7-_Ffl5VQsDzXw_Y2IKkiJf";
+    // ===================================================
 
-    // 初始化云开发
-    function initCloud() {
-        try {
-            if (typeof cloudbase === 'undefined') {
-                console.error('? SDK未加载');
-                return false;
+    let students = [];
+    let gifts = [];
+    let exchangeRecords = [];
+    let currentStudent = null;
+
+    // ==================== API 操作 ====================
+    async function api(method, path, data) {
+        const opts = {
+            method: method,
+            headers: {
+                'apikey': SUPABASE_ANON_KEY,
+                'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+                'Content-Type': 'application/json'
             }
-            const app = cloudbase.init({ env: ENV_ID });
-            db = app.database();
-            ready = true;
-            console.log('? 云开发已连接');
-            return true;
+        };
+        if (data) opts.body = JSON.stringify(data);
+        const res = await fetch(`${SUPABASE_URL}/rest/v1/${path}`, opts);
+        return await res.json();
+    }
+
+    // ==================== 加载数据 ====================
+    async function loadAll() {
+        try {
+            const [s, g, r] = await Promise.all([
+                api('GET', 'students?select=*&order=id.asc'),
+                api('GET', 'gifts?select=*&order=id.asc'),
+                api('GET', 'exchange_records?select=*&order=id.asc')
+            ]);
+            students = s || [];
+            gifts = g || [];
+            exchangeRecords = r || [];
+            renderAll();
         } catch (e) {
-            console.error('? 初始化失败:', e);
-            return false;
+            document.getElementById('studentTableBody').innerHTML = '<tr><td colspan="4">加载失败</td></tr>';
         }
     }
 
-    // 数据库操作
-    async function addData(col, data) { return await db.collection(col).add(data); }
-    async function getData(col) { const res = await db.collection(col).get(); return res.data; }
-    async function updData(col, id, data) { return await db.collection(col).doc(id).update(data); }
-    async function delData(col, id) { return await db.collection(col).doc(id).remove(); }
-
-    // 默认数据
-    const defaultStudents = [
-        { name: "杜佳融", studentId: "1", points: 372 },
-        { name: "郭宸羲", studentId: "2", points: 420 },
-        { name: "张俊一", studentId: "3", points: 44 },
-        { name: "叶昕垚", studentId: "4", points: 346 },
-        { name: "施泽文", studentId: "5", points: 396 },
-        { name: "沈桐彤", studentId: "6", points: 322 },
-        { name: "黄仲楠", studentId: "7", points: 437 },
-        { name: "金易杭", studentId: "8", points: 90 },
-        { name: "郑玥", studentId: "9", points: 295 },
-        { name: "陆佳瑜", studentId: "10", points: 299 },
-        { name: "王悦涵", studentId: "11", points: 362 },
-        { name: "周梦琪", studentId: "12", points: 330 },
-        { name: "王诗涵", studentId: "13", points: 322 },
-        { name: "孙晨纬", studentId: "14", points: 413 },
-        { name: "许伟祺", studentId: "15", points: 291 },
-        { name: "沈凡", studentId: "16", points: 390 },
-        { name: "金张昱", studentId: "17", points: 369 },
-        { name: "张诗悦", studentId: "18", points: 326 },
-        { name: "朱奕名", studentId: "19", points: 341 },
-        { name: "王子以恩", studentId: "20", points: 267 },
-        { name: "杨如溪", studentId: "21", points: 431 },
-        { name: "庄陆谊", studentId: "22", points: 474 },
-        { name: "何禾言", studentId: "23", points: 366 },
-        { name: "徐安澜", studentId: "24", points: 358 },
-        { name: "杨子彧", studentId: "25", points: 394 },
-        { name: "王雨菡", studentId: "26", points: 402 },
-        { name: "廖芷恬", studentId: "27", points: 429 },
-        { name: "沈哲勋", studentId: "28", points: 139 },
-        { name: "姚艺歆", studentId: "29", points: 343 },
-        { name: "谢俊宇", studentId: "30", points: 350 },
-        { name: "张子洋", studentId: "31", points: 466 },
-        { name: "施翊峰", studentId: "32", points: 423 },
-        { name: "王铭泽", studentId: "33", points: 340 },
-        { name: "谢雨潼", studentId: "34", points: 166 },
-        { name: "王杨滢", studentId: "35", points: 481 }
-    ];
-    const defaultGifts = [
-        { name: "免作业卡", cost: 120, stock: 10 },
-        { name: "小零食组合", cost: 200, stock: 8 },
-        { name: "班级表扬信", cost: 80, stock: 20 },
-        { name: "自选同桌体验卡", cost: 300, stock: 5 }
-    ];
-
-    async function loadData() {
-        if (!ready) return;
-        try {
-            const [s, g, r] = await Promise.all([getData('students'), getData('gifts'), getData('exchange_records')]);
-            students = s || []; gifts = g || []; records = r || [];
-            if (students.length === 0 && gifts.length === 0) {
-                for (let s of defaultStudents) await addData('students', s);
-                for (let g of defaultGifts) await addData('gifts', g);
-                return loadData();
-            }
-            renderAll();
-        } catch (e) { console.error('加载失败:', e); }
-    }
+    // ==================== 渲染 ====================
+    function escapeHtml(s) { if (!s) return ''; return String(s).replace(/[&<>]/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[m])); }
 
     function renderAll() {
-        renderStudentTable(); renderGiftList(); renderRanking(); renderExchangeLog(); updateFilterSelect();
+        renderStudentTable();
+        renderGiftList();
+        renderRanking();
+        renderExchangeLog();
+        updateFilterSelect();
         if (currentStudent) renderStudentView();
     }
 
-    function escapeHtml(s) { if (!s) return ''; return String(s).replace(/[&<>]/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[m])); }
-
     function renderStudentTable() {
         const tbody = document.getElementById('studentTableBody');
-        if (!students || !students.length) { tbody.innerHTML = '<tr><td colspan="4">暂无学生</td></tr>'; return; }
-        tbody.innerHTML = students.map(s => `<tr><td>${escapeHtml(s.name)}</td><td>${escapeHtml(s.studentId||'-')}</td><td class="score-cell">${s.points} 分</td><td><button class="small-btn small-add" onclick="changePoints('${s._id}','add')">?加分</button><button class="small-btn small-sub" onclick="changePoints('${s._id}','sub')">?减分</button><button class="small-btn small-del" onclick="deleteStudent('${s._id}')">???删除</button></td></tr>`).join('');
+        if (!students.length) { tbody.innerHTML = '<tr><td colspan="4">暂无学生，请添加</td></tr>'; return; }
+        tbody.innerHTML = students.map(s => `<tr>
+            <td>${escapeHtml(s.name)}</td>
+            <td>${escapeHtml(s.student_id || '-')}</td>
+            <td class="score-cell">${s.points} 分</td>
+            <td>
+                <button class="small-btn small-add" onclick="changePoints(${s.id}, 'add')">➕加分</button>
+                <button class="small-btn small-sub" onclick="changePoints(${s.id}, 'sub')">➖减分</button>
+                <button class="small-btn small-del" onclick="deleteStudent(${s.id})">🗑️删除</button>
+            </td>
+        </tr>`).join('');
     }
 
     window.changePoints = async function(id, type) {
-        const s = students.find(x=>x._id===id); if(!s) return;
-        let val = parseInt(prompt(`要${type==='add'?'加':'减'}多少分`,"10"));
-        if(isNaN(val)||val<=0) return alert("正整数");
-        const np = type==='add' ? s.points+val : Math.max(0, s.points-val);
-        try { await updData('students', id, { points: np }); loadData(); } catch(e) { alert('操作失败'); }
+        const s = students.find(x => x.id === id);
+        if (!s) return;
+        let val = parseInt(prompt(`请输入要${type === 'add' ? '加' : '减'}的积分`, "10"));
+        if (isNaN(val) || val <= 0) return alert("请输入正整数");
+        const newPoints = type === 'add' ? s.points + val : Math.max(0, s.points - val);
+        await api('PATCH', `students?id=eq.${id}`, { points: newPoints });
+        await loadAll();
     };
 
-    window.deleteStudent = async function(id) { if(!confirm("删除？")) return; try { await delData('students', id); loadData(); } catch(e) { alert('失败'); } };
+    window.deleteStudent = async function(id) {
+        if (confirm("确定删除？")) {
+            await api('DELETE', `students?id=eq.${id}`);
+            await loadAll();
+        }
+    };
 
     function renderGiftList() {
         const container = document.getElementById('giftGrid');
-        if (!gifts || !gifts.length) { container.innerHTML = '<div>暂无礼品</div>'; return; }
-        container.innerHTML = gifts.map(g => `<div class="gift-card"><div class="gift-name">?? ${escapeHtml(g.name)}</div><div class="gift-cost">?? ${g.cost} 积分</div><div class="gift-stock">?? 剩余 ${g.stock}</div><button class="exchange-btn" onclick="teacherExchange('${g._id}')">教师兑换</button><button class="delete-gift-btn" onclick="deleteGift('${g._id}')">删除</button></div>`).join('');
+        if (!gifts.length) { container.innerHTML = '<div>暂无礼品</div>'; return; }
+        container.innerHTML = gifts.map(g => `
+            <div class="gift-card">
+                <div class="gift-name">🎁 ${escapeHtml(g.name)}</div>
+                <div class="gift-cost">💰 ${g.cost} 积分</div>
+                <div class="gift-stock">📦 剩余 ${g.stock} 份</div>
+                <button class="exchange-btn" onclick="teacherExchange(${g.id})">教师兑换</button>
+                <button class="delete-gift-btn" onclick="deleteGift(${g.id})">删除</button>
+            </div>
+        `).join('');
     }
 
     window.teacherExchange = async function(gid) {
-        const g = gifts.find(x=>x._id===gid); if(!g||g.stock<=0) return alert("库存不足");
-        const name = prompt("学生姓名"); const s = students.find(x=>x.name===name?.trim());
-        if(!s) return alert("未找到"); if(s.points<g.cost) return alert("积分不足");
-        try {
-            await updData('students', s._id, { points: s.points - g.cost });
-            await updData('gifts', gid, { stock: g.stock - 1 });
-            await addData('exchange_records', { studentId: s._id, studentName: s.name, giftName: g.name, giftId: gid, cost: g.cost, pointsAfter: s.points - g.cost, date: new Date().toISOString() });
-            loadData(); alert('兑换成功');
-        } catch(e) { alert('失败'); }
+        const g = gifts.find(x => x.id === gid);
+        if (!g || g.stock <= 0) return alert("库存不足");
+        const name = prompt("学生姓名");
+        const s = students.find(x => x.name === name?.trim());
+        if (!s) return alert("未找到");
+        if (s.points < g.cost) return alert("积分不足");
+        const newPoints = s.points - g.cost;
+        await api('PATCH', `students?id=eq.${s.id}`, { points: newPoints });
+        await api('PATCH', `gifts?id=eq.${gid}`, { stock: g.stock - 1 });
+        await api('POST', 'exchange_records', {
+            student_id: s.id,
+            student_name: s.name,
+            gift_name: g.name,
+            gift_id: gid,
+            cost: g.cost,
+            points_after: newPoints,
+            exchange_time: new Date().toISOString()
+        });
+        await loadAll();
+        alert("兑换成功");
     };
 
-    window.deleteGift = async function(id) { if(!confirm("删除？")) return; try { await delData('gifts', id); loadData(); } catch(e) { alert('失败'); } };
+    window.deleteGift = async function(id) {
+        if (confirm("删除？")) {
+            await api('DELETE', `gifts?id=eq.${id}`);
+            await loadAll();
+        }
+    };
 
     window.deleteExchangeRecord = async function(idx, refund) {
-        const r = records[idx]; if(!r) return;
-        if(!confirm(refund?"删除并退还？":"确定删除？")) return;
-        try {
-            if(refund) {
-                const s = students.find(x=>x._id===r.studentId);
-                if(s) await updData('students', s._id, { points: s.points + r.cost });
-                const g = gifts.find(x=>x._id===r.giftId);
-                if(g) await updData('gifts', g._id, { stock: g.stock + 1 });
-            }
-            await delData('exchange_records', r._id);
-            loadData(); alert('已删除');
-        } catch(e) { alert('失败'); }
+        const r = exchangeRecords[idx];
+        if (!r) return;
+        if (!confirm(refund ? "删除并退还？" : "确定删除？")) return;
+        if (refund) {
+            const s = students.find(x => x.id === r.student_id);
+            if (s) await api('PATCH', `students?id=eq.${s.id}`, { points: s.points + r.cost });
+            const g = gifts.find(x => x.id === r.gift_id);
+            if (g) await api('PATCH', `gifts?id=eq.${g.id}`, { stock: g.stock + 1 });
+        }
+        await api('DELETE', `exchange_records?id=eq.${r.id}`);
+        await loadAll();
+        alert("已删除");
     };
 
     function renderExchangeLog() {
         const filterId = document.getElementById('filterStudentSelect').value || null;
-        let filtered = filterId ? records.filter(r=>r.studentId===filterId) : records;
+        let filtered = filterId ? exchangeRecords.filter(r => r.student_id == filterId) : exchangeRecords;
         const container = document.getElementById('exchangeLogList');
-        if(!filtered||!filtered.length){ container.innerHTML='暂无记录'; return; }
-        container.innerHTML = filtered.map((r,idx) => {
-            const oi = records.findIndex(er=>er._id===r._id);
-            return `<div class="log-item"><span>?? ${new Date(r.date).toLocaleString()} | ${escapeHtml(r.studentName)} 兑换【${escapeHtml(r.giftName)}】花费 ${r.cost} 分，剩余 ${r.pointsAfter} 分</span><span><button class="del-log-refund" onclick="deleteExchangeRecord(${oi}, true)">??? 删除并退还</button><button class="del-log-only" onclick="deleteExchangeRecord(${oi}, false)">??? 仅删除</button></span></div>`;
-        }).join('');
+        if (!filtered.length) { container.innerHTML = '暂无记录'; return; }
+        container.innerHTML = filtered.map((r, idx) => `
+            <div class="log-item">
+                <span>📅 ${new Date(r.exchange_time).toLocaleString()} | ${escapeHtml(r.student_name)} 兑换【${escapeHtml(r.gift_name)}】花费 ${r.cost} 分，剩余 ${r.points_after} 分</span>
+                <span>
+                    <button class="del-log-refund" onclick="deleteExchangeRecord(${idx}, true)">🗑️ 删除并退还</button>
+                    <button class="del-log-only" onclick="deleteExchangeRecord(${idx}, false)">🗑️ 仅删除</button>
+                </span>
+            </div>
+        `).join('');
     }
 
     function updateFilterSelect() {
         const sel = document.getElementById('filterStudentSelect');
-        if(!students||!students.length){ sel.innerHTML='<option value="">全部学生</option>'; return; }
-        sel.innerHTML = '<option value="">全部学生</option>' + students.map(s=>`<option value="${s._id}">${escapeHtml(s.name)}</option>`).join('');
+        sel.innerHTML = '<option value="">全部学生</option>' + students.map(s => `<option value="${s.id}">${escapeHtml(s.name)}</option>`).join('');
+        renderExchangeLog();
     }
 
     function renderRanking() {
-        const sorted = [...(students||[])].sort((a,b)=>b.points-a.points).slice(0,5);
+        const sorted = [...students].sort((a,b) => b.points - a.points).slice(0,5);
         const rankDiv = document.getElementById('rankList');
-        if(!sorted||!sorted.length){ rankDiv.innerHTML='<li>暂无学生</li>'; return; }
-        rankDiv.innerHTML = sorted.map((s,i)=>`<li>${i+1}. ${escapeHtml(s.name)} <strong>${s.points}</strong> 分</li>`).join('');
+        if (!sorted.length) { rankDiv.innerHTML = '<li>暂无学生</li>'; return; }
+        rankDiv.innerHTML = sorted.map((s,i) => `<li>${i+1}. ${escapeHtml(s.name)} <strong>${s.points}</strong> 分</li>`).join('');
     }
 
     async function verifyStudent() {
         const name = document.getElementById('studentNameInput').value.trim();
         const sid = document.getElementById('studentIdInput').value.trim();
-        const s = students.find(x=>x.name===name && x.studentId===sid);
-        if(!s){ alert("验证失败"); return; }
+        const s = students.find(x => x.name === name && x.student_id === sid);
+        if (!s) { alert("验证失败"); return; }
         currentStudent = s;
-        document.getElementById('studentInfo').innerHTML = `? 欢迎，${escapeHtml(s.name)} | 当前积分: <strong>${s.points}</strong> 分`;
+        document.getElementById('studentInfo').innerHTML = `✅ 欢迎，${escapeHtml(s.name)} | 当前积分: <strong>${s.points}</strong> 分`;
         document.getElementById('studentInfo').style.display = 'block';
         document.getElementById('studentGiftArea').style.display = 'block';
         renderStudentView();
     }
 
     function renderStudentView() {
-        if(!currentStudent) return;
-        const ava = (gifts||[]).filter(g=>g.stock>0);
+        if (!currentStudent) return;
+        const ava = gifts.filter(g => g.stock > 0);
         const container = document.getElementById('studentGiftGrid');
-        if(!ava||!ava.length){ container.innerHTML='<div>暂无礼品</div>'; return; }
-        container.innerHTML = ava.map(g=>`<div class="gift-card"><div class="gift-name">?? ${escapeHtml(g.name)}</div><div class="gift-cost">?? ${g.cost} 积分</div><div class="gift-stock">?? 剩余 ${g.stock}</div><button class="exchange-btn" onclick="studentExchange('${g._id}')">立即兑换</button></div>`).join('');
-        const my = records.filter(r=>r.studentId===currentStudent._id);
+        if (!ava.length) { container.innerHTML = '<div>暂无礼品</div>'; }
+        else { container.innerHTML = ava.map(g => `
+            <div class="gift-card">
+                <div class="gift-name">🎁 ${escapeHtml(g.name)}</div>
+                <div class="gift-cost">💰 ${g.cost} 积分</div>
+                <div class="gift-stock">📦 剩余 ${g.stock}</div>
+                <button class="exchange-btn" onclick="studentExchange(${g.id})">立即兑换</button>
+            </div>
+        `).join(''); }
+        const my = exchangeRecords.filter(r => r.student_id === currentStudent.id);
         const logDiv = document.getElementById('studentOwnLogs');
-        if(!my||!my.length){ logDiv.innerHTML='暂无记录'; return; }
-        logDiv.innerHTML = my.map(r=>`<div class="log-item">?? ${new Date(r.date).toLocaleString()} 兑换【${escapeHtml(r.giftName)}】花费 ${r.cost} 分，剩余 ${r.pointsAfter} 分</div>`).join('');
+        if (!my.length) { logDiv.innerHTML = '暂无记录'; }
+        else { logDiv.innerHTML = my.map(r => `<div class="log-item">📅 ${new Date(r.exchange_time).toLocaleString()} 兑换【${escapeHtml(r.gift_name)}】花费 ${r.cost} 分，剩余 ${r.points_after} 分</div>`).join(''); }
     }
 
     window.studentExchange = async function(gid) {
-        if(!currentStudent) return;
-        const g = gifts.find(x=>x._id===gid); if(!g||g.stock<=0) return alert("库存不足");
-        if(currentStudent.points<g.cost) return alert("积分不足");
-        try {
-            await updData('students', currentStudent._id, { points: currentStudent.points - g.cost });
-            await updData('gifts', gid, { stock: g.stock - 1 });
-            await addData('exchange_records', { studentId: currentStudent._id, studentName: currentStudent.name, giftName: g.name, giftId: gid, cost: g.cost, pointsAfter: currentStudent.points - g.cost, date: new Date().toISOString() });
-            loadData();
-            currentStudent = students.find(s=>s._id===currentStudent._id);
-            document.getElementById('studentInfo').innerHTML = `? 欢迎，${escapeHtml(currentStudent.name)} | 当前积分: <strong>${currentStudent.points}</strong> 分`;
-            renderStudentView();
-            alert('兑换成功！');
-        } catch(e) { alert('失败'); }
+        if (!currentStudent) return;
+        const g = gifts.find(x => x.id === gid);
+        if (!g || g.stock <= 0) return alert("库存不足");
+        if (currentStudent.points < g.cost) return alert("积分不足");
+        const newPoints = currentStudent.points - g.cost;
+        await api('PATCH', `students?id=eq.${currentStudent.id}`, { points: newPoints });
+        await api('PATCH', `gifts?id=eq.${gid}`, { stock: g.stock - 1 });
+        await api('POST', 'exchange_records', {
+            student_id: currentStudent.id,
+            student_name: currentStudent.name,
+            gift_name: g.name,
+            gift_id: gid,
+            cost: g.cost,
+            points_after: newPoints,
+            exchange_time: new Date().toISOString()
+        });
+        await loadAll();
+        currentStudent = students.find(x => x.id === currentStudent.id);
+        document.getElementById('studentInfo').innerHTML = `✅ 欢迎，${escapeHtml(currentStudent.name)} | 当前积分: <strong>${currentStudent.points}</strong> 分`;
+        renderStudentView();
+        alert("兑换成功！");
     };
 
-    async function addStudent(name, sid) { if(!name.trim()) return alert("请输入姓名"); try { await addData('students', { name: name.trim(), studentId: sid.trim()||name, points: 0 }); loadData(); } catch(e){ alert('失败'); } }
-    async function batchAddStudents(text) { const lines=text.trim().split(/\r?\n/); let added=0; for(let l of lines){ l=l.trim(); if(!l) continue; let[n,sid]=l.split(','); n=n?.trim(); if(n){ await addData('students', { name:n, studentId:sid?.trim()||n, points:0 }); added++; } } loadData(); alert(`导入 ${added} 人`); }
-    async function addGift(n,c,s){ if(!n.trim()) return alert("请输入礼品名"); try{ await addData('gifts', { name:n.trim(), cost:parseInt(c), stock:parseInt(s) }); loadData(); } catch(e){ alert('失败'); } }
-    async function resetAllPoints(){ if(!confirm("重置全班积分？")) return; for(let s of students) await updData('students', s._id, { points: 0 }); loadData(); alert("已重置"); }
-    function exportFullBackup(){ const data={ students, gifts, records }; const blob=new Blob([JSON.stringify(data)],{type:"application/json"}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=`备份_${Date.now()}.json`; a.click(); }
-    function importBackup(file){ const reader=new FileReader(); reader.onload=async e=>{ try{ const d=JSON.parse(e.target.result); for(let s of students) await delData('students', s._id).catch(()=>{}); for(let g of gifts) await delData('gifts', g._id).catch(()=>{}); for(let r of records) await delData('exchange_records', r._id).catch(()=>{}); if(d.students) for(let s of d.students) await addData('students', { name:s.name, studentId:s.studentId||s.student_id, points:s.points }); if(d.gifts) for(let g of d.gifts) await addData('gifts', { name:g.name, cost:g.cost, stock:g.stock }); if(d.records) for(let r of d.records) await addData('exchange_records', { studentId:r.studentId, studentName:r.studentName, giftName:r.giftName, giftId:r.giftId, cost:r.cost, pointsAfter:r.pointsAfter, date:r.date||new Date().toISOString() }); loadData(); alert("导入成功"); } catch(err){ alert("文件错误"); } }; reader.readAsText(file); }
-    function exportExchangeLog(){ if(!records||!records.length){ alert("暂无记录"); return; } let csv=[["时间","学生","礼品","花费","剩余"]]; for(let r of records) csv.push([new Date(r.date).toLocaleString(), r.studentName, r.giftName, r.cost, r.pointsAfter]); let blob=new Blob(["\uFEFF"+csv.map(row=>row.join(",")).join("\n")],{type:"text/csv"}); let a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=`兑换记录_${Date.now()}.csv`; a.click(); }
+    async function addStudent(name, sid) {
+        if (!name.trim()) return alert("请输入姓名");
+        await api('POST', 'students', { name: name.trim(), student_id: sid.trim() || name, points: 0 });
+        await loadAll();
+    }
+
+    async function batchAddStudents(text) {
+        const lines = text.trim().split(/\r?\n/);
+        let added = 0;
+        for (let l of lines) {
+            l = l.trim(); if (!l) continue;
+            let [name, sid] = l.split(','); name = name?.trim();
+            if (name) { await api('POST', 'students', { name, student_id: sid?.trim() || name, points: 0 }); added++; }
+        }
+        await loadAll();
+        alert(`导入 ${added} 人`);
+    }
+
+    async function addGift(n, c, s) {
+        if (!n.trim()) return alert("请输入礼品名");
+        await api('POST', 'gifts', { name: n.trim(), cost: parseInt(c), stock: parseInt(s) });
+        await loadAll();
+    }
+
+    async function resetAllPoints() {
+        if (!confirm("重置全班积分？")) return;
+        for (let s of students) await api('PATCH', `students?id=eq.${s.id}`, { points: 0 });
+        await loadAll();
+        alert("已重置");
+    }
+
+    function exportFullBackup() {
+        const data = { students, gifts, exchangeRecords };
+        const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = `备份_${Date.now()}.json`;
+        a.click();
+    }
+
+    function importBackup(file) {
+        const reader = new FileReader();
+        reader.onload = async e => {
+            try {
+                const data = JSON.parse(e.target.result);
+                for (let s of students) await api('DELETE', `students?id=eq.${s.id}`);
+                for (let g of gifts) await api('DELETE', `gifts?id=eq.${g.id}`);
+                for (let r of exchangeRecords) await api('DELETE', `exchange_records?id=eq.${r.id}`);
+                if (data.students) for (let s of data.students) await api('POST', 'students', { name: s.name, student_id: s.student_id || s.studentId, points: s.points });
+                if (data.gifts) for (let g of data.gifts) await api('POST', 'gifts', { name: g.name, cost: g.cost, stock: g.stock });
+                if (data.exchangeRecords) for (let r of data.exchangeRecords) await api('POST', 'exchange_records', { student_id: r.student_id, student_name: r.studentName, gift_name: r.giftName, gift_id: r.giftId, cost: r.cost, points_after: r.pointsAfter, exchange_time: r.exchange_time || new Date().toISOString() });
+                await loadAll();
+                alert("导入成功");
+            } catch(err) { alert("文件错误"); }
+        };
+        reader.readAsText(file);
+    }
+
+    function exportExchangeLog() {
+        if (!exchangeRecords.length) { alert("暂无记录"); return; }
+        let csv = [["时间","学生","礼品","花费","剩余"]];
+        for (let r of exchangeRecords) csv.push([new Date(r.exchange_time).toLocaleString(), r.student_name, r.gift_name, r.cost, r.points_after]);
+        let blob = new Blob(["\uFEFF" + csv.map(row => row.join(",")).join("\n")], { type: "text/csv" });
+        let a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = `兑换记录_${Date.now()}.csv`;
+        a.click();
+    }
 
     // 绑定事件
     document.getElementById('addStudentBtn').onclick = () => document.getElementById('studentModal').classList.remove('hidden');
-    document.getElementById('confirmStudentBtn').onclick = async () => { await addStudent(document.getElementById('newStudentName').value, document.getElementById('newStudentId').value); document.getElementById('studentModal').classList.add('hidden'); document.getElementById('newStudentName').value=''; document.getElementById('newStudentId').value=''; };
+    document.getElementById('confirmStudentBtn').onclick = async () => {
+        await addStudent(document.getElementById('newStudentName').value, document.getElementById('newStudentId').value);
+        document.getElementById('studentModal').classList.add('hidden');
+        document.getElementById('newStudentName').value = ''; document.getElementById('newStudentId').value = '';
+    };
     document.getElementById('closeStudentModal').onclick = () => document.getElementById('studentModal').classList.add('hidden');
     document.getElementById('batchImportBtn').onclick = () => document.getElementById('batchModal').classList.remove('hidden');
     document.getElementById('closeBatchModal').onclick = () => document.getElementById('batchModal').classList.add('hidden');
-    document.getElementById('confirmBatchBtn').onclick = async () => { await batchAddStudents(document.getElementById('batchData').value); document.getElementById('batchModal').classList.add('hidden'); document.getElementById('batchData').value=''; };
+    document.getElementById('confirmBatchBtn').onclick = async () => {
+        await batchAddStudents(document.getElementById('batchData').value);
+        document.getElementById('batchModal').classList.add('hidden');
+        document.getElementById('batchData').value = '';
+    };
     document.getElementById('addGiftBtn').onclick = () => document.getElementById('giftModal').classList.remove('hidden');
-    document.getElementById('confirmGiftBtn').onclick = async () => { await addGift(document.getElementById('newGiftName').value, document.getElementById('newGiftCost').value, document.getElementById('newGiftStock').value); document.getElementById('giftModal').classList.add('hidden'); document.getElementById('newGiftName').value=''; document.getElementById('newGiftCost').value='100'; document.getElementById('newGiftStock').value='5'; };
+    document.getElementById('confirmGiftBtn').onclick = async () => {
+        await addGift(document.getElementById('newGiftName').value, document.getElementById('newGiftCost').value, document.getElementById('newGiftStock').value);
+        document.getElementById('giftModal').classList.add('hidden');
+        document.getElementById('newGiftName').value = ''; document.getElementById('newGiftCost').value = '100'; document.getElementById('newGiftStock').value = '5';
+    };
     document.getElementById('closeGiftModal').onclick = () => document.getElementById('giftModal').classList.add('hidden');
     document.getElementById('resetPointsBtn').onclick = resetAllPoints;
     document.getElementById('exportDataBtn').onclick = exportFullBackup;
     document.getElementById('importDataBtn').onclick = () => document.getElementById('importFile').click();
-    document.getElementById('importFile').onchange = e => { if(e.target.files[0]) importBackup(e.target.files[0]); e.target.value=''; };
+    document.getElementById('importFile').onchange = e => { if(e.target.files[0]) importBackup(e.target.files[0]); e.target.value = ''; };
     document.getElementById('verifyStudentBtn').onclick = verifyStudent;
     document.getElementById('filterStudentSelect').onchange = () => renderExchangeLog();
     document.getElementById('exportExchangeLogBtn').onclick = exportExchangeLog;
 
     document.querySelectorAll('.tab-btn').forEach(btn => {
         btn.onclick = () => {
-            document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-            document.getElementById('teacherPane').classList.toggle('active-pane', btn.dataset.tab==='teacher');
-            document.getElementById('studentPane').classList.toggle('active-pane', btn.dataset.tab==='student');
-            if(btn.dataset.tab==='student' && currentStudent) renderStudentView();
+            document.getElementById('teacherPane').classList.toggle('active-pane', btn.dataset.tab === 'teacher');
+            document.getElementById('studentPane').classList.toggle('active-pane', btn.dataset.tab === 'student');
+            if (btn.dataset.tab === 'student' && currentStudent) renderStudentView();
         };
     });
 
-    // 启动
-    function start() {
-        console.log('环境ID:', ENV_ID);
-        console.log('SDK状态:', typeof cloudbase !== 'undefined' ? '? 已加载' : '? 未加载');
-        if (typeof cloudbase !== 'undefined') {
-            if (initCloud()) {
-                loadData();
-            } else {
-                document.getElementById('studentTableBody').innerHTML = '<tr><td colspan="4">? 云开发初始化失败</td></tr>';
-            }
-        } else {
-            document.getElementById('studentTableBody').innerHTML = '<tr><td colspan="4">? SDK加载失败，请检查网络</td></tr>';
-            document.getElementById('giftGrid').innerHTML = '<div>? SDK加载失败</div>';
-            document.getElementById('rankList').innerHTML = '<li>? SDK加载失败</li>';
-        }
-    }
-
-    start();
+    loadAll();
 </script>
 </body>
 </html>
